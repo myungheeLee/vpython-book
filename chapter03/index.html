@@ -1,0 +1,2215 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="파이썬 기초 문법을 이미 아는 고등학생이 Vpython을 통해 코드를 3D 시각화로 살아 움직이게 만드는 10차시 자기주도형 수업 교재입니다. 매 차시 이전 코드를 확장하는 스노우볼 구조로 설계되어, 최종적으로 개인 융합 프로젝트를 완성합니다.">
+      
+      
+        <meta name="author" content="이명희 (EduFlow)">
+      
+      
+      
+        <link rel="prev" href="../chapter02/">
+      
+      
+        <link rel="next" href="../chapter04/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>3차시: 코드에 생명 불어넣기 - while 루프로 애니메이션 만들기 - Vpython으로 프로그래밍 날개 달기</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans KR";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#3-while" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href=".." title="Vpython으로 프로그래밍 날개 달기" class="md-header__button md-logo" aria-label="Vpython으로 프로그래밍 날개 달기" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vpython으로 프로그래밍 날개 달기
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3차시: 코드에 생명 불어넣기 - while 루프로 애니메이션 만들기
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="다크 모드로 전환"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드로 전환" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="라이트 모드로 전환"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드로 전환" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="공유" aria-label="공유" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../chapter01/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter04/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter07/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter10/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Vpython으로 프로그래밍 날개 달기" class="md-nav__button md-logo" aria-label="Vpython으로 프로그래밍 날개 달기" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Vpython으로 프로그래밍 날개 달기
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1차시: 첫 번째 3D 세계 만들기 - 환경 설정부터 구(sphere) 띄우기까지
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2차시: 나만의 3D 장면 꾸미기 - 색상·크기·위치로 객체 디자인하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3차시: 코드에 생명 불어넣기 - while 루프로 애니메이션 만들기
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3차시: 코드에 생명 불어넣기 - while 루프로 애니메이션 만들기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 애니메이션 루프
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 rate() 함수
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 공 움직이기 실습
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 도전: 나만의 애니메이션
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏱️ 수업 흐름
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏱️ 수업 흐름">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1단계: 도입 — 영화의 비밀 (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-while-rate-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2단계: 핵심 개념 — while 루프와 rate() (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3단계: 따라하기 실습 — 공을 움직여보자 (20분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4단계: 연습 문제 &amp; 도전 과제 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5단계: 평가 &amp; 성찰 (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1단계: 🎬 도입 — 영화의 비밀
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-while-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2단계: 📚 핵심 개념 — while 루프와 rate()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2단계: 📚 핵심 개념 — while 루프와 rate()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-while-true" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 핵심 개념 1: while True — 무한 애니메이션 루프
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 핵심 개념 1: while True — 무한 애니메이션 루프">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        일상 비유부터 시작합시다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        정확한 정의
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 핵심 개념 2: rate() — 프레임 속도 조절기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 핵심 개념 2: rate() — 프레임 속도 조절기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        일상 비유부터 시작합시다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        정확한 정의
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rate()가 하는 일을 그림으로 보면
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        심화: rate()가 없으면 왜 위험할까?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3단계: 💻 따라하기 실습 — 공을 움직여보자!
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3단계: 💻 따라하기 실습 — 공을 움직여보자!">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 v1: 가장 기본 — 공 하나를 오른쪽으로 밀기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔬 rate() 값을 바꿔보는 실험
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2-velocity-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 v2: 속도(velocity) 개념 도입 — rate와 분리하기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 에러 경험 — rate()를 빼먹으면?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 에러 경험 2 — pos를 잘못 수정하면?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4차시: 방향이 있는 숫자 - vector()로 2D·3D 움직임 제어하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5차시: 속도를 코드로 표현하다 - 등속 운동과 경계 조건 구현하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6차시: 중력을 눈으로 보다 - 가속도와 포물선 운동 시뮬레이션
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7차시: 내가 조종하는 3D 세계 - 키보드·마우스 입력으로 객체 제어하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8차시: 객체가 많아지면? - 리스트로 여러 3D 객체 한꺼번에 다루기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9차시: 부딪히면 반응하라! - 충돌 감지와 에러 디버깅 실전
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10차시: 나만의 3D 시뮬레이션 완성 - 미니 프로젝트 설계·코딩·공유
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 애니메이션 루프
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 rate() 함수
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 공 움직이기 실습
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 도전: 나만의 애니메이션
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏱️ 수업 흐름
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏱️ 수업 흐름">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1단계: 도입 — 영화의 비밀 (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-while-rate-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2단계: 핵심 개념 — while 루프와 rate() (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3단계: 따라하기 실습 — 공을 움직여보자 (20분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4단계: 연습 문제 &amp; 도전 과제 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5단계: 평가 &amp; 성찰 (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1단계: 🎬 도입 — 영화의 비밀
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-while-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2단계: 📚 핵심 개념 — while 루프와 rate()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2단계: 📚 핵심 개념 — while 루프와 rate()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-while-true" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 핵심 개념 1: while True — 무한 애니메이션 루프
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 핵심 개념 1: while True — 무한 애니메이션 루프">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        일상 비유부터 시작합시다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        정확한 정의
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 핵심 개념 2: rate() — 프레임 속도 조절기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 핵심 개념 2: rate() — 프레임 속도 조절기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        일상 비유부터 시작합시다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        정확한 정의
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rate()가 하는 일을 그림으로 보면
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        심화: rate()가 없으면 왜 위험할까?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3단계: 💻 따라하기 실습 — 공을 움직여보자!
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3단계: 💻 따라하기 실습 — 공을 움직여보자!">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 v1: 가장 기본 — 공 하나를 오른쪽으로 밀기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔬 rate() 값을 바꿔보는 실험
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2-velocity-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 v2: 속도(velocity) 개념 도입 — rate와 분리하기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 에러 경험 — rate()를 빼먹으면?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 에러 경험 2 — pos를 잘못 수정하면?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="네비게이션" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href=".." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../chapter01/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="3-while">3차시: 코드에 생명 불어넣기 - while 루프로 애니메이션 만들기<a class="headerlink" href="#3-while" title="Permanent link">&para;</a></h1>
+<div class="lesson-banner">
+<p><strong>⏰ 50분</strong> · while 루프 · rate() 함수 · pos 속성 변경 · 등속 직선 운동 · <strong>난이도</strong> ●●○○○</p>
+<p><strong>학습목표</strong>: while 루프와 rate() 함수를 사용하여 3D 객체가 부드럽게 움직이는 애니메이션을 구현할 수 있다.</p>
+<blockquote>
+<p><strong>오늘의 질문</strong>: "영화는 사실 '사진'의 연속이라는 거 아시나요? 그렇다면 코드로 공을 움직이려면 사진을 몇 장이나 그려야 할까요?"</p>
+</blockquote>
+</div>
+<hr />
+<div class="cards-grid">
+<div class="card card-orange">
+<h3 id="_1">🧠 애니메이션 루프<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>while True + rate()가 만드는<br/>무한 프레임의 원리</p>
+</div>
+<div class="card card-orange">
+<h3 id="rate">🧠 rate() 함수<a class="headerlink" href="#rate" title="Permanent link">&para;</a></h3>
+<p>프레임 속도를 제어하는<br/>Vpython의 시간 조절기</p>
+</div>
+<div class="card card-blue">
+<h3 id="_2">💻 공 움직이기 실습<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>pos.x를 반복문에서 변경하여<br/>등속 직선 운동 구현</p>
+</div>
+<div class="card card-purple">
+<h3 id="_3">🚀 도전: 나만의 애니메이션<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>속도·방향·여러 객체를<br/>조합한 장면 만들기</p>
+</div>
+</div>
+<hr />
+<h2 id="_4">⏱️ 수업 흐름<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<div class="steps">
+<div class="step">
+<h4 id="1-5">1단계: 도입 — 영화의 비밀 (5분)<a class="headerlink" href="#1-5" title="Permanent link">&para;</a></h4>
+<p>영화·애니메이션이 정지 이미지의 빠른 연속이라는 원리를 떠올리며, 코드에서 이를 어떻게 구현하는지 핵심 질문으로 탐구합니다.</p>
+</div>
+<div class="step">
+<h4 id="2-while-rate-10">2단계: 핵심 개념 — while 루프와 rate() (10분)<a class="headerlink" href="#2-while-rate-10" title="Permanent link">&para;</a></h4>
+<p>while True 무한 루프가 애니메이션 엔진이 되는 원리, rate() 함수가 프레임 속도를 제어하는 역할을 비유와 함께 이해합니다.</p>
+</div>
+<div class="step">
+<h4 id="3-20">3단계: 따라하기 실습 — 공을 움직여보자 (20분)<a class="headerlink" href="#3-20" title="Permanent link">&para;</a></h4>
+<p>v1(기본 이동) → v2(속도 개념 도입) → v3(바닥과 함께 장면 꾸미기) → 최종(에러 수정 포함) 순서로 점진적으로 코드를 빌드업합니다.</p>
+</div>
+<div class="step">
+<h4 id="4-10">4단계: 연습 문제 &amp; 도전 과제 (10분)<a class="headerlink" href="#4-10" title="Permanent link">&para;</a></h4>
+<p>기초(방향 변경) → 응용(여러 객체 이동) → 도전(2차시 장면에 애니메이션 추가) 3단계 문제를 풀어봅니다.</p>
+</div>
+<div class="step">
+<h4 id="5-5">5단계: 평가 &amp; 성찰 (5분)<a class="headerlink" href="#5-5" title="Permanent link">&para;</a></h4>
+<p>퀴즈로 개념을 점검하고, 자기점검 체크리스트를 작성합니다. 다음 차시를 미리 엿봅니다.</p>
+</div>
+</div>
+<hr />
+<h2 id="1">1단계: 🎬 도입 — 영화의 비밀<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>여러분, 영화를 볼 때 화면 속 배우가 자연스럽게 움직이는 것처럼 보이죠? 하지만 실제로는 <strong>1초에 24장의 정지된 사진</strong>이 빠르게 넘어가는 것입니다. 우리 눈이 그 차이를 인식하지 못할 만큼 빠르기 때문에 "움직인다"고 느끼는 거예요.</p>
+<p>게임도 마찬가지입니다. 1초에 60장(60fps)의 화면을 그려서 캐릭터가 부드럽게 달리는 것처럼 보이게 만듭니다.</p>
+<blockquote>
+<p>🤔 <strong>그렇다면 질문!</strong></p>
+<p>Vpython에서 공 하나를 오른쪽으로 움직이려면, 우리는 무엇을 "반복"해야 할까요?</p>
+</blockquote>
+<p><strong>정답의 핵심</strong>: "공의 위치를 아주 조금 바꾼다" → "화면을 다시 그린다" → 이것을 <strong>수없이 반복</strong>한다!</p>
+<p>바로 이 "반복"을 담당하는 것이 여러분이 이미 배운 <strong>while 반복문</strong>입니다. 오늘 우리는 while 루프에 새로운 역할을 부여할 겁니다 — <strong>애니메이션 엔진</strong>이라는 역할이요.</p>
+<div class="mermaid">flowchart LR
+    A["위치를 조금 변경"] --&gt; B["화면에 그리기"] --&gt; C["잠깐 대기"] --&gt; A
+    style A fill:#ff9800,color:#fff
+    style B fill:#4caf50,color:#fff
+    style C fill:#2196f3,color:#fff</div>
+<blockquote>
+<p>▲ 애니메이션의 핵심 원리: 위치 변경 → 화면 그리기 → 대기 → 반복</p>
+</blockquote>
+<p>이 세 가지를 코드로 어떻게 표현하는지, 지금부터 하나씩 알아보겠습니다!</p>
+<hr />
+<h2 id="2-while-rate">2단계: 📚 핵심 개념 — while 루프와 rate()<a class="headerlink" href="#2-while-rate" title="Permanent link">&para;</a></h2>
+<h3 id="1-while-true">🧠 핵심 개념 1: while True — 무한 애니메이션 루프<a class="headerlink" href="#1-while-true" title="Permanent link">&para;</a></h3>
+<h4 id="_5">일상 비유부터 시작합시다<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>시계의 초침을 생각해보세요. 초침은 "1초 전진 → 1초 전진 → 1초 전진 → ..." 을 <strong>영원히</strong> 반복합니다. 누가 "멈춰!"라고 하지 않는 한요. </p>
+<p>Vpython의 애니메이션도 똑같습니다. "위치 변경 → 위치 변경 → 위치 변경 → ..." 을 <strong>영원히</strong> 반복해야 공이 계속 움직입니다. 이것이 바로 <code>while True:</code>의 역할입니다.</p>
+<h4 id="_6">정확한 정의<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>일반 while 루프</th>
+<th>애니메이션 while 루프</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>조건</strong></td>
+<td><code>while count &lt; 10:</code> (언젠가 끝남)</td>
+<td><code>while True:</code> (영원히 반복)</td>
+</tr>
+<tr>
+<td><strong>용도</strong></td>
+<td>정해진 횟수만큼 작업</td>
+<td>매 프레임마다 화면 갱신</td>
+</tr>
+<tr>
+<td><strong>종료</strong></td>
+<td>조건이 False가 되면</td>
+<td>프로그램을 직접 종료할 때</td>
+</tr>
+<tr>
+<td><strong>비유</strong></td>
+<td>100m 달리기 (결승선 있음)</td>
+<td>러닝머신 (멈출 때까지 계속)</td>
+</tr>
+</tbody>
+</table>
+<p>여러분이 이전에 배운 <code>while count &lt; 10:</code>은 10번 반복하고 멈추는 루프였죠. 하지만 애니메이션은 화면을 계속 갱신해야 하므로, <strong>의도적으로 끝나지 않는</strong> <code>while True:</code>를 사용합니다.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 여러분이 이미 아는 while 루프</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">while</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># → 0, 1, 2, 3, 4 출력 후 끝남</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># 오늘 배울 애니메이션 루프 (개념만 미리 보기)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>       <span class="c1"># &lt;- 영원히 반복! (애니메이션 엔진)</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">rate</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>      <span class="c1"># &lt;- 1초에 60번만 실행해! (속도 조절기)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mf">0.01</span>  <span class="c1"># &lt;- 공 위치를 조금 이동</span>
+</span></code></pre></div>
+<p>위 코드의 1번째 줄 <code>while True:</code>가 바로 <strong>무한 애니메이션 루프</strong>입니다. True는 절대 False가 되지 않으므로, 이 루프는 프로그램을 종료하기 전까지 계속 돌아갑니다.</p>
+<hr />
+<h3 id="2-rate">🧠 핵심 개념 2: rate() — 프레임 속도 조절기<a class="headerlink" href="#2-rate" title="Permanent link">&para;</a></h3>
+<h4 id="_7">일상 비유부터 시작합시다<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p>여러분이 플립북(넘기면 그림이 움직이는 수첩) 을 만든다고 상상해보세요.</p>
+<ul>
+<li><strong>너무 빨리 넘기면?</strong> → 그림이 눈에 안 보이고 휙 지나감</li>
+<li><strong>너무 느리게 넘기면?</strong> → 뚝뚝 끊겨서 애니메이션처럼 안 보임</li>
+<li><strong>적당한 속도로 넘기면?</strong> → 부드럽게 움직이는 것처럼 보임! ✨</li>
+</ul>
+<p><code>rate()</code> 함수가 바로 이 <strong>"넘기는 속도"를 조절하는 역할</strong>입니다.</p>
+<h4 id="_8">정확한 정의<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p><code>rate(n)</code>은 <strong>"이 루프를 1초에 최대 n번 실행하라"</strong>는 명령입니다.</p>
+<table>
+<thead>
+<tr>
+<th>rate() 값</th>
+<th>의미</th>
+<th>체감</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rate(10)</code></td>
+<td>1초에 10프레임</td>
+<td>뚝뚝 끊기는 느낌</td>
+</tr>
+<tr>
+<td><code>rate(30)</code></td>
+<td>1초에 30프레임</td>
+<td>꽤 부드러움</td>
+</tr>
+<tr>
+<td><code>rate(60)</code></td>
+<td>1초에 60프레임</td>
+<td>매우 부드러움 (게임 수준)</td>
+</tr>
+<tr>
+<td><code>rate(200)</code></td>
+<td>1초에 200프레임</td>
+<td>눈에 차이 거의 없음</td>
+</tr>
+<tr>
+<td><strong>rate() 없이</strong></td>
+<td><strong>CPU가 허용하는 최대 속도</strong></td>
+<td><strong>컴퓨터 과부하 위험! ⚠️</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>중요!</strong> rate()를 빼먹으면 컴퓨터가 미친 듯이 루프를 돌려서 브라우저가 멈추거나 프로그램이 응답 불가 상태가 될 수 있습니다. <strong>while True 안에는 반드시 rate()를 넣으세요!</strong></p>
+</blockquote>
+<h4 id="rate_1">rate()가 하는 일을 그림으로 보면<a class="headerlink" href="#rate_1" title="Permanent link">&para;</a></h4>
+<div class="mermaid">sequenceDiagram
+    participant 루프 as while 루프
+    participant rate as "rate(60)"
+    participant 화면 as 3D 화면
+
+    루프-&gt;&gt;rate: 실행 요청
+    rate-&gt;&gt;rate: "1/60초 지났나?"
+    alt 아직 시간 안 됨
+        rate-&gt;&gt;루프: 잠깐 대기!
+    else 시간 됨
+        rate-&gt;&gt;루프: 진행해도 좋습니다
+    end
+    루프-&gt;&gt;화면: 위치 업데이트, 화면 갱신
+    루프-&gt;&gt;rate: 다시 실행 요청</div>
+<blockquote>
+<p>▲ rate(60)은 매 반복마다 "1/60초(약 0.017초)가 지났는지" 확인하고, 아직이면 잠깐 기다리게 합니다.</p>
+</blockquote>
+<h4 id="rate_2">심화: rate()가 없으면 왜 위험할까?<a class="headerlink" href="#rate_2" title="Permanent link">&para;</a></h4>
+<p>rate() 없이 <code>while True:</code>를 실행하면, 컴퓨터는 CPU 능력의 100%를 써서 초당 수만~수십만 번 루프를 돌립니다. 이러면:</p>
+<ol>
+<li>공이 순식간에 화면 밖으로 사라짐 (너무 빨라서 못 봄)</li>
+<li>브라우저/프로그램이 응답 불가 상태가 됨</li>
+<li>컴퓨터 팬이 미친 듯이 돌아감 🔥</li>
+</ol>
+<p>rate()는 "쉬엄쉬엄 해!"라고 말해주는 <strong>속도 제한기</strong>입니다. 이것만 기억하세요!</p>
+<hr />
+<h2 id="3">3단계: 💻 따라하기 실습 — 공을 움직여보자!<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>실행 환경</strong>: Vpython 3.2 (Web VPython 또는 GlowScript에서 실행 가능)</p>
+</blockquote>
+<p>자, 이제 직접 코드를 쳐볼 시간입니다! 🎉 한 줄씩 추가하면서 공에 생명을 불어넣어 봅시다.</p>
+<h3 id="v1">📌 v1: 가장 기본 — 공 하나를 오른쪽으로 밀기<a class="headerlink" href="#v1" title="Permanent link">&para;</a></h3>
+<p>먼저 가장 단순한 코드부터 시작합니다. <strong>딱 5줄</strong>이면 됩니다.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>              <span class="c1"># &lt;- 여기가 [무한 애니메이션 루프]</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">rate</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>             <span class="c1"># &lt;- 여기가 [프레임 속도 조절기] - 1초에 30번</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mf">0.1</span>    <span class="c1"># &lt;- 여기가 [위치 변경] - x좌표를 0.1씩 증가</span>
+</span></code></pre></div>
+<p><strong>실행 결과</strong>: 빨간 공이 오른쪽(+x 방향)으로 천천히 이동합니다.</p>
+<blockquote>
+<p>🔍 <strong>개념-코드 매핑</strong></p>
+<ul>
+<li>3번째 줄 <code>ball = sphere(...)</code>: 2차시에서 배운 공 생성입니다.</li>
+<li>5번째 줄 <code>while True:</code>: 이 루프가 <strong>애니메이션 엔진</strong>입니다. 프로그램이 종료될 때까지 아래 코드를 반복합니다.</li>
+<li>6번째 줄 <code>rate(30)</code>: 1초에 30번만 실행하라는 <strong>속도 제한기</strong>입니다.</li>
+<li>7번째 줄 <code>ball.pos.x += 0.1</code>: 매 프레임마다 공의 x좌표를 0.1만큼 증가시킵니다. 이것이 <strong>등속 직선 운동</strong>입니다!</li>
+</ul>
+<p>💡 <strong>잠깐! <code>ball.pos.x += 0.1</code>이 뭔가요?</strong></p>
+<p><code>ball.pos</code>는 공의 위치(vector)이고, <code>.x</code>는 그 중 x좌표만 가리킵니다. <code>+= 0.1</code>은 "현재 값에 0.1을 더해라"라는 뜻이죠. 즉, <strong>매 프레임마다 공이 오른쪽으로 0.1만큼 이동</strong>하는 겁니다.</p>
+</blockquote>
+<hr />
+<h3 id="rate_3">🔬 rate() 값을 바꿔보는 실험<a class="headerlink" href="#rate_3" title="Permanent link">&para;</a></h3>
+<p>v1 코드에서 <code>rate(30)</code>의 숫자만 바꿔서 실행해보세요. <strong>직접 해보는 것이 핵심입니다!</strong></p>
+<table>
+<thead>
+<tr>
+<th>실험</th>
+<th>코드 변경</th>
+<th>예상 결과</th>
+<th>왜 그럴까?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>실험 A</td>
+<td><code>rate(5)</code></td>
+<td>뚝뚝 끊기며 느리게 이동</td>
+<td>1초에 5번만 위치를 바꾸니까</td>
+</tr>
+<tr>
+<td>실험 B</td>
+<td><code>rate(30)</code></td>
+<td>적당히 부드럽게 이동</td>
+<td>1초에 30번 위치를 바꿈</td>
+</tr>
+<tr>
+<td>실험 C</td>
+<td><code>rate(100)</code></td>
+<td>매우 부드럽고 빠르게 이동</td>
+<td>1초에 100번 위치를 바꿈</td>
+</tr>
+<tr>
+<td>실험 D</td>
+<td><code>rate(1)</code></td>
+<td>1초에 한 번 "뚝" 이동</td>
+<td>1초에 딱 1번만!</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🤔 <strong>여기서 질문!</strong> rate(5)와 rate(100)은 부드러움도 다르지만, <strong>공의 이동 속도</strong>도 다릅니다. 왜 그럴까요?</p>
+<p><strong>답</strong>: rate(5)는 1초에 5번 × 0.1 = <strong>0.5만큼</strong> 이동하고, rate(100)은 1초에 100번 × 0.1 = <strong>10만큼</strong> 이동합니다. rate 값이 클수록 같은 시간에 더 많이 이동하게 됩니다!</p>
+</blockquote>
+<p>이 문제를 해결하는 방법은 v2에서 알아봅시다. 👇</p>
+<hr />
+<h3 id="v2-velocity-rate">📌 v2: 속도(velocity) 개념 도입 — rate와 분리하기<a class="headerlink" href="#v2-velocity-rate" title="Permanent link">&para;</a></h3>
+<p>v1의 문제점은 rate를 바꾸면 공의 이동 속도까지 바뀐다는 것이었습니다. 실제 애니메이션에서는 <strong>프레임 속도와 객체 이동 속도를 분리</strong>해야 합니다.</p>
+<p><strong>이전 코드에서 뭐가 바뀌었나요?</strong>
+- ✅ <code>dt</code> 변수 추가 (시간 간격)
+- ✅ <code>velocity</code> 변수 추가 (속도)
+- ✅ 위치 변경 공식: <code>pos.x += velocity * dt</code></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># 물리적 속도를 별도 변수로 관리 (rate와 분리!)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">velocity</span> <span class="o">=</span> <span class="mi">2</span>       <span class="c1"># &lt;- 1초에 2만큼 이동하겠다는 뜻</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span>          <span class="c1"># &lt;- 한 프레임의 시간 간격 (초)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">rate</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>                      <span class="c1"># 1초에 100프레임</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">velocity</span> <span class="o">*</span> <span class="n">dt</span>    <span class="c1"># &lt;- 여기가 [등속 직선 운동 공식]</span>
+</span></code></pre></div>
+<p><strong>실행 결과</strong>: 빨간 공이 왼쪽(-5)에서 시작하여 오른쪽으로 부드럽게 이동합니다.</p>
+<blockquote>
+<p>🔍 <strong>개념-코드 매핑</strong></p>
+<ul>
+<li>6번째 줄 <code>velocity = 2</code>: 공의 <strong>속도</strong>입니다. "1초에 x좌표로 2만큼 이동"을 의미합니다.</li>
+<li>7번째 줄 <code>dt = 0.01</code>: <strong>시간 간격</strong>(delta time)입니다. 한 프레임이 0.01초를 나타냅니다.</li>
+<li>11번째 줄 <code>ball.pos.x += velocity * dt</code>: 이것이 <strong>등속 직선 운동 공식</strong> <code>거리 = 속도 × 시간</code>입니다!</li>
+<li>velocity(2) × dt(0.01) = 0.02씩 이동</li>
+<li>1초에 100프레임 × 0.02 = <strong>2만큼 이동</strong> → velocity와 정확히 일치! ✅</li>
+</ul>
+</blockquote>
+<p><strong>왜 이렇게 하나요?</strong> 이제 rate()를 30으로 바꾸든 200으로 바꾸든, 공의 실제 이동 속도는 <code>velocity</code>가 결정합니다. 프레임 속도와 물리적 속도가 깔끔하게 분리된 것이죠!</p>
+<table>
+<thead>
+<tr>
+<th>방식</th>
+<th>rate 변경 시</th>
+<th>속도 제어</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v1: <code>pos.x += 0.1</code></td>
+<td>공 속도도 같이 변함 ❌</td>
+<td>어려움</td>
+</tr>
+<tr>
+<td>v2: <code>pos.x += velocity * dt</code></td>
+<td>부드러움만 변함 ✅</td>
+<td>velocity로 쉽게 제어</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="rate_4">🚨 에러 경험 — rate()를 빼먹으면?<a class="headerlink" href="#rate_4" title="Permanent link">&para;</a></h3>
+<p>자, 이제 <strong>일부러 잘못된 코드</strong>를 실행해봅시다. 에러를 직접 만나봐야 기억에 남으니까요! 😈</p>
+<p>아래 코드에서 이상한 점을 찾아보세요:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">velocity</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="c1"># rate()를 빼먹었습니다! 🚨</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">velocity</span> <span class="o">*</span> <span class="n">dt</span>
+</span></code></pre></div>
+<p><strong>이 코드를 실행하면 어떤 일이 벌어질까요?</strong></p>
+<details><summary>🔍 결과 확인하기</summary>
+
+**증상**:
+1. 공이 눈 깜짝할 사이에 화면 밖으로 사라집니다
+2. 브라우저가 먹통이 되거나 극도로 느려집니다
+3. "페이지가 응답하지 않습니다" 경고가 뜰 수 있습니다
+
+**원인 분석**:
+- `rate()`가 없으면 while True 루프가 **CPU 최대 속도**로 돌아갑니다
+- 1초에 수만~수십만 번 `pos.x += 0.02`가 실행됩니다
+- 공이 순식간에 x = 수천~수만 좌표로 날아가버립니다
+- 브라우저가 3D 렌더링을 따라가지 못해 멈춥니다
+
+**수정 코드**: `while True:` 바로 다음 줄에 `rate(100)`을 추가합니다.
+
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">rate</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>      <span class="c1"># ← 이 한 줄이 없으면 큰일! 반드시 추가!</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">velocity</span> <span class="o">*</span> <span class="n">dt</span>
+</span></code></pre></div>
+
+</details>
+
+<blockquote>
+<p>📌 <strong>외워두세요!</strong> <code>while True:</code> 다음 줄에는 <strong>반드시</strong> <code>rate()</code>를 쓴다! 이건 Vpython 애니메이션의 <strong>철칙</strong>입니다.</p>
+</blockquote>
+<hr />
+<h3 id="2-pos">🚨 에러 경험 2 — pos를 잘못 수정하면?<a class="headerlink" href="#2-pos" title="Permanent link">&para;</a></h3>
+<p>하나 더 실험해봅시다. 아래 코드를 실행하면 어떻게 될까요?</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">velocity</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="n">rate</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">velocity</span> <span class="o">*</span> <span class="n">dt</span>    <span class="c1"># += 가 아니라 = 를 썼습니다!</span>
+</span></code></pre></div>
+<p><strong>이 코드를 실행하면 어떤 에러가 날까요?</strong></p>
+<details><summary>🔍 결과 확인하기</summary>
+
+**증상**: 에러 메시지는 나지 않지만, **공이 움직이지 않습니다!** 😱
+
+**원인 분석**:
+- `ball.pos.x = velocity * dt`는 매 프레임마다 x좌표를 `2 × 0.01 = 0.02`로 **고정**합니다
+- `+=`는 "기존 값에 더하기"이고, `=`는 "기존 값을 무시하고 새 값으로 덮어쓰기"입니다
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="하단/푸터" >
+        
+          
+          <a href="../chapter02/" class="md-footer__link md-footer__link--prev" aria-label="이전: 2차시: 나만의 3D 장면 꾸미기 - 색상·크기·위치로 객체 디자인하기">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                이전
+              </span>
+              <div class="md-ellipsis">
+                2차시: 나만의 3D 장면 꾸미기 - 색상·크기·위치로 객체 디자인하기
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../chapter04/" class="md-footer__link md-footer__link--next" aria-label="다음: 4차시: 방향이 있는 숫자 - vector()로 2D·3D 움직임 제어하기">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                다음
+              </span>
+              <div class="md-ellipsis">
+                4차시: 방향이 있는 숫자 - vector()로 2D·3D 움직임 제어하기
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 이명희 | <a href='https://eduflow-greatsong.fly.dev/'>EduFlow</a>로 제작
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "navigation.instant", "navigation.path", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../javascripts/title-link.js"></script>
+      
+        <script src="../javascripts/mermaid-config.js"></script>
+      
+        <script src="../javascripts/scroll-progress.js"></script>
+      
+        <script src="../javascripts/eduflow-nav.js"></script>
+      
+        <script src="../javascripts/lightbox.js"></script>
+      
+        <script src="../javascripts/quiz-engine.js"></script>
+      
+    
+  </body>
+</html>

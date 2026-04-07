@@ -1,0 +1,2321 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="파이썬 기초 문법을 이미 아는 고등학생이 Vpython을 통해 코드를 3D 시각화로 살아 움직이게 만드는 10차시 자기주도형 수업 교재입니다. 매 차시 이전 코드를 확장하는 스노우볼 구조로 설계되어, 최종적으로 개인 융합 프로젝트를 완성합니다.">
+      
+      
+        <meta name="author" content="이명희 (EduFlow)">
+      
+      
+      
+        <link rel="prev" href="../chapter03/">
+      
+      
+        <link rel="next" href="../chapter05/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>4차시: 방향이 있는 숫자 - vector()로 2D·3D 움직임 제어하기 - Vpython으로 프로그래밍 날개 달기</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans KR";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#4-vector-2d3d" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href=".." title="Vpython으로 프로그래밍 날개 달기" class="md-header__button md-logo" aria-label="Vpython으로 프로그래밍 날개 달기" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vpython으로 프로그래밍 날개 달기
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4차시: 방향이 있는 숫자 - vector()로 2D·3D 움직임 제어하기
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="다크 모드로 전환"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드로 전환" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="라이트 모드로 전환"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드로 전환" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="공유" aria-label="공유" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter01/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter07/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter10/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Vpython으로 프로그래밍 날개 달기" class="md-nav__button md-logo" aria-label="Vpython으로 프로그래밍 날개 달기" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Vpython으로 프로그래밍 날개 달기
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1차시: 첫 번째 3D 세계 만들기 - 환경 설정부터 구(sphere) 띄우기까지
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2차시: 나만의 3D 장면 꾸미기 - 색상·크기·위치로 객체 디자인하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3차시: 코드에 생명 불어넣기 - while 루프로 애니메이션 만들기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4차시: 방향이 있는 숫자 - vector()로 2D·3D 움직임 제어하기
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4차시: 방향이 있는 숫자 - vector()로 2D·3D 움직임 제어하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 핵심 개념 1: vector 객체와 연산
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mag-norm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 핵심 개념 2: mag와 norm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 따라하기 실습
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 평가
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏱️ 수업 흐름
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏱️ 수업 흐름">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔥 도입 — 숫자 하나로는 부족해! (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vector-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 개념 탐구 — vector 객체와 벡터 연산 (12분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-arrow-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 실습 1 — arrow로 벡터를 눈에 보이게! (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mag-norm-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 개념 탐구 — mag와 norm 함수 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 실습 2 — 3차시 코드를 벡터로 리팩토링 + 평가 (13분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔥 도입 — 숫자 하나로는 부족해! (5분)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔥 도입 — 숫자 하나로는 부족해! (5분)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3차시에서 우리가 했던 것
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        일상 속 "방향이 있는 숫자"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-vector-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 핵심 개념 1: vector 객체와 벡터 연산 (12분)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📖 핵심 개념 1: vector 객체와 벡터 연산 (12분)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 비유로 시작: 택배 배달 주소
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔎 정의: vector란?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v1-vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1: vector 만들어보기 (기본)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs-vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 리스트 vs vector — 뭐가 다를까?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2: 벡터 연산 — 덧셈, 뺄셈, 스칼라곱
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vector_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 에러 경험: vector끼리 곱하면?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 핵심 정리: 벡터 연산 규칙
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-arrow-10_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 실습 1 — arrow로 벡터를 눈에 보이게! (10분)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 실습 1 — arrow로 벡터를 눈에 보이게! (10분)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1: 화살표 하나 그리기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2: 두 벡터의 덧셈을 눈으로 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v3-pos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v3: pos 이동에 벡터 활용하기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mag-norm-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 핵심 개념 2: mag와 norm 함수 (10분)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📖 핵심 개념 2: mag와 norm 함수 (10분)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 비유로 시작: 레시피의 "방향"과 "양"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mag-norm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔎 정의: mag와 norm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v1-mag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1: mag 사용해보기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5차시: 속도를 코드로 표현하다 - 등속 운동과 경계 조건 구현하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6차시: 중력을 눈으로 보다 - 가속도와 포물선 운동 시뮬레이션
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7차시: 내가 조종하는 3D 세계 - 키보드·마우스 입력으로 객체 제어하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8차시: 객체가 많아지면? - 리스트로 여러 3D 객체 한꺼번에 다루기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9차시: 부딪히면 반응하라! - 충돌 감지와 에러 디버깅 실전
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10차시: 나만의 3D 시뮬레이션 완성 - 미니 프로젝트 설계·코딩·공유
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 핵심 개념 1: vector 객체와 연산
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mag-norm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 핵심 개념 2: mag와 norm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 따라하기 실습
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 평가
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏱️ 수업 흐름
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏱️ 수업 흐름">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔥 도입 — 숫자 하나로는 부족해! (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vector-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 개념 탐구 — vector 객체와 벡터 연산 (12분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-arrow-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 실습 1 — arrow로 벡터를 눈에 보이게! (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mag-norm-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 개념 탐구 — mag와 norm 함수 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 실습 2 — 3차시 코드를 벡터로 리팩토링 + 평가 (13분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔥 도입 — 숫자 하나로는 부족해! (5분)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔥 도입 — 숫자 하나로는 부족해! (5분)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3차시에서 우리가 했던 것
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        일상 속 "방향이 있는 숫자"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-vector-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 핵심 개념 1: vector 객체와 벡터 연산 (12분)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📖 핵심 개념 1: vector 객체와 벡터 연산 (12분)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 비유로 시작: 택배 배달 주소
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔎 정의: vector란?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v1-vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1: vector 만들어보기 (기본)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs-vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 리스트 vs vector — 뭐가 다를까?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2: 벡터 연산 — 덧셈, 뺄셈, 스칼라곱
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vector_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 에러 경험: vector끼리 곱하면?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 핵심 정리: 벡터 연산 규칙
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-arrow-10_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 실습 1 — arrow로 벡터를 눈에 보이게! (10분)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 실습 1 — arrow로 벡터를 눈에 보이게! (10분)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1: 화살표 하나 그리기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2: 두 벡터의 덧셈을 눈으로 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v3-pos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v3: pos 이동에 벡터 활용하기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mag-norm-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 핵심 개념 2: mag와 norm 함수 (10분)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📖 핵심 개념 2: mag와 norm 함수 (10분)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 비유로 시작: 레시피의 "방향"과 "양"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mag-norm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔎 정의: mag와 norm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v1-mag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1: mag 사용해보기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="네비게이션" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href=".." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="4-vector-2d3d">4차시: 방향이 있는 숫자 - vector()로 2D·3D 움직임 제어하기<a class="headerlink" href="#4-vector-2d3d" title="Permanent link">&para;</a></h1>
+<div class="lesson-banner">
+<p><strong>⏰ 50분</strong> · vector 객체 · 벡터 연산 · mag/norm · <strong>난이도</strong> ●●○○○</p>
+<p><strong>학습목표</strong>: VPython의 <code>vector(x, y, z)</code> 객체를 생성하고, 벡터 연산(덧셈·뺄셈·스칼라곱)과 <code>mag</code>, <code>norm</code> 함수를 활용하여 3D 공간에서 객체의 움직임을 제어할 수 있다.</p>
+<blockquote>
+<p><strong>오늘의 질문</strong>: "내비게이션이 '북쪽으로 300m 이동'이라고 안내할 때, 숫자 하나(300)만으로 충분할까요? 🤔"</p>
+</blockquote>
+</div>
+<hr />
+<div class="cards-grid">
+<div class="card card-orange">
+<h3 id="1-vector">🧠 핵심 개념 1: vector 객체와 연산<a class="headerlink" href="#1-vector" title="Permanent link">&para;</a></h3>
+<p>숫자 하나가 아닌 <strong>방향+크기</strong>를 동시에 담는 그릇, <code>vector(x, y, z)</code>의 덧셈·뺄셈·스칼라곱을 익힙니다.</p>
+</div>
+<div class="card card-orange">
+<h3 id="2-mag-norm">🧠 핵심 개념 2: mag와 norm<a class="headerlink" href="#2-mag-norm" title="Permanent link">&para;</a></h3>
+<p>벡터에서 <strong>크기만</strong> 뽑는 <code>mag</code>와 <strong>방향만</strong> 뽑는 <code>norm</code> — 물리 시뮬레이션의 핵심 도구를 배웁니다.</p>
+</div>
+<div class="card card-blue">
+<h3 id="_1">💻 따라하기 실습<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>arrow 객체로 벡터를 <strong>눈으로</strong> 확인하고, 3차시 애니메이션을 벡터 방식으로 리팩토링합니다.</p>
+</div>
+<div class="card card-red">
+<h3 id="_2">📝 평가<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>벡터 연산 퀴즈 + 대각선 이동 코딩 도전으로 오늘 배운 내용을 점검합니다.</p>
+</div>
+</div>
+<hr />
+<h2 id="_3">⏱️ 수업 흐름<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<div class="steps">
+<div class="step">
+<h4 id="5">🔥 도입 — 숫자 하나로는 부족해! (5분)<a class="headerlink" href="#5" title="Permanent link">&para;</a></h4>
+<p>3차시에서 <code>pos.x</code>만 바꿨던 한계를 떠올리며, "방향이 있는 숫자"의 필요성을 체감합니다.</p>
+</div>
+<div class="step">
+<h4 id="vector-12">📖 개념 탐구 — vector 객체와 벡터 연산 (12분)<a class="headerlink" href="#vector-12" title="Permanent link">&para;</a></h4>
+<p><code>vector(x, y, z)</code> 생성, 덧셈·뺄셈·스칼라곱을 코드로 실습하며 개념을 잡습니다.</p>
+</div>
+<div class="step">
+<h4 id="1-arrow-10">🛠️ 실습 1 — arrow로 벡터를 눈에 보이게! (10분)<a class="headerlink" href="#1-arrow-10" title="Permanent link">&para;</a></h4>
+<p>arrow 객체를 사용하여 벡터를 3D 공간에 직접 그려보고, 연산 결과를 시각적으로 확인합니다.</p>
+</div>
+<div class="step">
+<h4 id="mag-norm-10">📖 개념 탐구 — mag와 norm 함수 (10분)<a class="headerlink" href="#mag-norm-10" title="Permanent link">&para;</a></h4>
+<p>벡터의 크기(mag)와 단위벡터(norm)를 분리하는 방법을 배우고, 왜 이것이 중요한지 이해합니다.</p>
+</div>
+<div class="step">
+<h4 id="2-3-13">🚀 실습 2 — 3차시 코드를 벡터로 리팩토링 + 평가 (13분)<a class="headerlink" href="#2-3-13" title="Permanent link">&para;</a></h4>
+<p>3차시 애니메이션을 벡터 방식으로 업그레이드하고, 형성 평가로 마무리합니다.</p>
+</div>
+</div>
+<hr />
+<h2 id="5_1">🔥 도입 — 숫자 하나로는 부족해! (5분)<a class="headerlink" href="#5_1" title="Permanent link">&para;</a></h2>
+<h3 id="3">3차시에서 우리가 했던 것<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>3차시에서 공을 오른쪽으로 움직일 때, 이렇게 코드를 작성했습니다:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.1</span>
+</span></code></pre></div>
+<p>x만 바꿨으니 공은 <strong>오른쪽으로만</strong> 이동했죠. 그런데 만약 공을 <strong>대각선</strong>으로 움직이고 싶다면요?</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.1</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mf">0.05</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">z</span> <span class="o">+</span> <span class="mf">0.02</span>
+</span></code></pre></div>
+<p>세 줄을 써야 합니다. 물체가 10개라면? 30줄이요! 😱</p>
+<h3 id="_4">일상 속 "방향이 있는 숫자"<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>내비게이션을 떠올려 보세요:</p>
+<table>
+<thead>
+<tr>
+<th>안내 방식</th>
+<th>충분한가요?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"300m 이동하세요"</td>
+<td>❌ 어느 방향으로요?</td>
+</tr>
+<tr>
+<td>"북쪽으로 300m"</td>
+<td>⭕ 방향 + 거리 = 도착!</td>
+</tr>
+</tbody>
+</table>
+<p><strong>"북쪽으로 300m"</strong> 처럼, <strong>방향과 크기(거리)를 한 덩어리로</strong> 담는 것이 바로 <strong>벡터(vector)</strong> 입니다. 오늘은 이 벡터를 VPython에서 어떻게 쓰는지 배워봅니다.</p>
+<div class="mermaid">flowchart LR
+    A["숫자 하나&lt;br/&gt;(스칼라)&lt;br/&gt;예: 300"] --&gt;|"방향이 없다"| B["어디로?🤷"]
+    C["벡터&lt;br/&gt;예: 북쪽 300m"] --&gt;|"방향 + 크기"| D["정확한 이동! ✅"]</div>
+<hr />
+<h2 id="1-vector-12">📖 핵심 개념 1: vector 객체와 벡터 연산 (12분)<a class="headerlink" href="#1-vector-12" title="Permanent link">&para;</a></h2>
+<h3 id="_5">🎯 비유로 시작: 택배 배달 주소<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>택배 기사님에게 "3층으로 올라가세요"라고만 하면 어떤 건물인지 모릅니다.
+"<strong>동쪽 2블록, 북쪽 3블록, 3층</strong>"이라고 해야 정확히 찾아갈 수 있죠.</p>
+<p>VPython의 <code>vector(x, y, z)</code>가 바로 이 역할을 합니다:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">성분</th>
+<th style="text-align: center;">VPython 축</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">오른쪽(+) / 왼쪽(−)</td>
+<td>좌우 방향</td>
+</tr>
+<tr>
+<td style="text-align: center;">y</td>
+<td style="text-align: center;">위(+) / 아래(−)</td>
+<td>상하 방향</td>
+</tr>
+<tr>
+<td style="text-align: center;">z</td>
+<td style="text-align: center;">화면 밖(+) / 안(−)</td>
+<td>앞뒤(깊이) 방향</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vector">🔎 정의: vector란?<a class="headerlink" href="#vector" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>vector(x, y, z)</strong> 는 3D 공간에서 <strong>방향</strong>과 <strong>크기</strong>를 동시에 표현하는 VPython의 특별한 객체입니다. 파이썬 리스트 <code>[x, y, z]</code>와 달리, <strong>수학 연산(+, −, ×)을 바로 할 수 있습니다.</strong></p>
+</blockquote>
+<h3 id="v1-vector">v1: vector 만들어보기 (기본)<a class="headerlink" href="#v1-vector" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>실행 환경: VPython 3.2 (Web VPython 또는 로컬 설치)</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># 벡터 만들기 — 오른쪽 2, 위로 3, 앞으로 0</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">v</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># 벡터의 각 성분 확인</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>         <span class="c1"># 전체 출력</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>       <span class="c1"># x 성분만</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>       <span class="c1"># y 성분만</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>       <span class="c1"># z 성분만</span>
+</span></code></pre></div>
+<p><strong>예상 출력:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&lt;2, 3, 0&gt;
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>2
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>3
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>0
+</span></code></pre></div></p>
+<p>위 코드의 3번째 줄 <code>v = vector(2, 3, 0)</code>이 바로 <strong>벡터 객체 생성</strong>입니다. 숫자 세 개를 넣으면, 3D 공간에서의 방향과 크기를 하나의 변수에 담을 수 있습니다.</p>
+<h3 id="vs-vector">📊 리스트 vs vector — 뭐가 다를까?<a class="headerlink" href="#vs-vector" title="Permanent link">&para;</a></h3>
+<p>"파이썬 리스트 <code>[2, 3, 0]</code>이랑 뭐가 다른데요?"라고 궁금하시죠? 핵심 차이를 볼게요:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># 파이썬 리스트로 시도</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">list_a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">list_b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># list_a + list_b → [2, 3, 0, 1, 1, 0]  ← 이어붙이기! 😢</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1"># VPython vector로 시도</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="n">vec_a</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">vec_b</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">vec_a</span> <span class="o">+</span> <span class="n">vec_b</span><span class="p">)</span>   <span class="c1"># &lt;- 여기가 벡터 덧셈!</span>
+</span></code></pre></div>
+<p><strong>예상 출력:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&lt;3, 4, 0&gt;
+</span></code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th>연산</th>
+<th>리스트 <code>[2,3,0] + [1,1,0]</code></th>
+<th>vector <code>vector(2,3,0) + vector(1,1,0)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>결과</td>
+<td><code>[2, 3, 0, 1, 1, 0]</code> (이어붙이기)</td>
+<td><code>&lt;3, 4, 0&gt;</code> (성분별 더하기) ✅</td>
+</tr>
+<tr>
+<td>의미</td>
+<td>프로그래밍적 연결</td>
+<td><strong>수학적 벡터 덧셈</strong></td>
+</tr>
+</tbody>
+</table>
+<p>리스트는 그냥 숫자를 담는 가방이고, vector는 <strong>수학을 이해하는 똑똑한 가방</strong>인 셈이죠! 🎒</p>
+<h3 id="v2">v2: 벡터 연산 — 덧셈, 뺄셈, 스칼라곱<a class="headerlink" href="#v2" title="Permanent link">&para;</a></h3>
+<p>이제 벡터끼리의 연산을 해봅시다. 이전 v1 코드에 연산을 추가합니다:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">a</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">b</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># 벡터 덧셈: 성분끼리 더하기</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a + b =&quot;</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>    <span class="c1"># &lt;- 여기가 벡터 덧셈</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># 벡터 뺄셈: 성분끼리 빼기</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a - b =&quot;</span><span class="p">,</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>    <span class="c1"># &lt;- 여기가 벡터 뺄셈</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="c1"># 스칼라곱: 모든 성분에 같은 수를 곱하기</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3 * a =&quot;</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span>    <span class="c1"># &lt;- 여기가 스칼라곱</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;0.5 * b =&quot;</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>예상 출력:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>a + b = &lt;3, 2, 0&gt;
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>a - b = &lt;1, 4, 0&gt;
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>3 * a = &lt;6, 9, 0&gt;
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>0.5 * b = &lt;0.5, -0.5, 0&gt;
+</span></code></pre></div></p>
+<p><strong>개념-코드 매핑:</strong></p>
+<ul>
+<li>7번째 줄 <code>a + b</code> — <strong>벡터 덧셈</strong>: 각 성분끼리 더합니다. (2+1, 3+(-1), 0+0) = (3, 2, 0)</li>
+<li>10번째 줄 <code>a - b</code> — <strong>벡터 뺄셈</strong>: 각 성분끼리 뺍니다. (2−1, 3−(−1), 0−0) = (1, 4, 0)</li>
+<li>13번째 줄 <code>3 * a</code> — <strong>스칼라곱</strong>: 숫자(스칼라) × 벡터 = 모든 성분에 곱합니다. (3×2, 3×3, 3×0) = (6, 9, 0)</li>
+</ul>
+<p>벡터 연산을 한눈에 정리하면:</p>
+<div class="mermaid">flowchart TD
+    A["벡터 a = (2, 3, 0)"] --&gt; C["덧셈 a+b&lt;br/&gt;(3, 2, 0)"]
+    B["벡터 b = (1, -1, 0)"] --&gt; C
+    A --&gt; D["뺄셈 a-b&lt;br/&gt;(1, 4, 0)"]
+    B --&gt; D
+    A --&gt; E["스칼라곱 3*a&lt;br/&gt;(6, 9, 0)"]</div>
+<h3 id="vector_1">🚨 에러 경험: vector끼리 곱하면?<a class="headerlink" href="#vector_1" title="Permanent link">&para;</a></h3>
+<p>아래 코드를 실행하면 어떤 에러가 날까요?</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">a</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">b</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="c1"># vector끼리 * 연산을 시도!</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>에러 메시지:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>TypeError: unsupported operand type(s) for *: &#39;vector&#39; and &#39;vector&#39;
+</span></code></pre></div></p>
+<p><strong>원인 분석:</strong> <code>*</code> 연산자는 <strong>숫자 × 벡터</strong> (스칼라곱)에만 사용할 수 있습니다. 벡터끼리 곱하려면 <code>dot(a, b)</code> (내적)이나 <code>cross(a, b)</code> (외적)이라는 별도 함수를 사용해야 합니다. 이 내용은 물리 시뮬레이션 심화에서 다루므로, 지금은 <strong>"벡터끼리는 <code>*</code> 안 됨!"</strong> 만 기억하세요.</p>
+<p><strong>수정 코드 — 스칼라곱으로 바꾸기:</strong>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">a</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1"># 숫자(스칼라) × 벡터 → OK!</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="n">result</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></code></pre></div></p>
+<p><strong>예상 출력:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>&lt;4, 6, 0&gt;
+</span></code></pre></div></p>
+<h3 id="_6">💡 핵심 정리: 벡터 연산 규칙<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>연산</th>
+<th>코드</th>
+<th style="text-align: center;">가능 여부</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>벡터 + 벡터</td>
+<td><code>a + b</code></td>
+<td style="text-align: center;">✅</td>
+<td>성분별 덧셈</td>
+</tr>
+<tr>
+<td>벡터 − 벡터</td>
+<td><code>a - b</code></td>
+<td style="text-align: center;">✅</td>
+<td>성분별 뺄셈</td>
+</tr>
+<tr>
+<td>숫자 × 벡터</td>
+<td><code>3 * a</code></td>
+<td style="text-align: center;">✅</td>
+<td>모든 성분에 곱</td>
+</tr>
+<tr>
+<td>벡터 × 벡터</td>
+<td><code>a * b</code></td>
+<td style="text-align: center;">❌</td>
+<td>TypeError 에러!</td>
+</tr>
+<tr>
+<td>벡터 / 숫자</td>
+<td><code>a / 2</code></td>
+<td style="text-align: center;">✅</td>
+<td>모든 성분을 나눔</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-arrow-10_1">🛠️ 실습 1 — arrow로 벡터를 눈에 보이게! (10분)<a class="headerlink" href="#1-arrow-10_1" title="Permanent link">&para;</a></h2>
+<p>벡터를 숫자로만 보면 감이 안 잡힙니다. VPython의 <code>arrow</code> 객체를 사용해서 <strong>벡터를 3D 공간에 직접 그려봅시다!</strong></p>
+<h3 id="v1">v1: 화살표 하나 그리기<a class="headerlink" href="#v1" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># 3D 캔버스 생성</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">scene</span> <span class="o">=</span> <span class="n">canvas</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;벡터 시각화&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1"># 벡터를 화살표로 표현</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># pos: 화살표 시작점, axis: 화살표 방향과 길이(= 벡터!)</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="n">my_arrow</span> <span class="o">=</span> <span class="n">arrow</span><span class="p">(</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>    <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>      <span class="c1"># 원점에서 시작</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>    <span class="n">axis</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>     <span class="c1"># &lt;- 여기가 우리가 표현할 벡터!</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">yellow</span><span class="p">,</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>    <span class="n">shaftwidth</span><span class="o">=</span><span class="mf">0.1</span>             <span class="c1"># 화살표 굵기</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>실행 결과:</strong> 원점 (0,0,0)에서 (3,2,0) 방향으로 노란색 화살표가 그려집니다.</p>
+<p>위 코드의 10번째 줄 <code>axis=vector(3, 2, 0)</code>이 바로 <strong>화살표가 나타내는 벡터</strong>입니다. <code>axis</code>는 "화살표가 가리키는 방향과 길이"를 의미해요.</p>
+<h3 id="v2_1">v2: 두 벡터의 덧셈을 눈으로 확인<a class="headerlink" href="#v2_1" title="Permanent link">&para;</a></h3>
+<p>이전 코드에서 <strong>두 번째 벡터와 합 벡터</strong>를 추가합니다:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">scene</span> <span class="o">=</span> <span class="n">canvas</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;벡터 덧셈 시각화&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># 벡터 a (빨간색)</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="n">a</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="n">arrow_a</span> <span class="o">=</span> <span class="n">arrow</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="n">a</span><span class="p">,</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>                <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">,</span> <span class="n">shaftwidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="c1"># 벡터 b (파란색) — a의 끝점에서 시작!</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="n">b</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="n">arrow_b</span> <span class="o">=</span> <span class="n">arrow</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">b</span><span class="p">,</span>                        <span class="c1"># &lt;- pos가 a! (이어 그리기)</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>                <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">blue</span><span class="p">,</span> <span class="n">shaftwidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="c1"># 벡터 a+b (초록색) — 원점에서 최종 도착점까지</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>                                         <span class="c1"># &lt;- 벡터 덧셈!</span>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="n">arrow_sum</span> <span class="o">=</span> <span class="n">arrow</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="n">result</span><span class="p">,</span>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>                  <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">green</span><span class="p">,</span> <span class="n">shaftwidth</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="c1"># 라벨로 표시</span>
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="n">label</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="n">label</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="n">label</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">result</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;a+b&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">green</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>실행 결과:</strong> 빨간 화살표(a) 끝에 파란 화살표(b)가 이어지고, 초록 화살표(a+b)가 원점에서 최종 도착점까지 한 번에 연결됩니다.</p>
+<p><strong>개념-코드 매핑:</strong></p>
+<ul>
+<li>12번째 줄 <code>pos=a</code> — 벡터 b의 시작점을 a의 끝점에 놓아서 <strong>이어 그리기(tip-to-tail)</strong> 를 구현합니다.</li>
+<li>16번째 줄 <code>result = a + b</code> — 벡터 덧셈의 결과를 계산합니다. 이것이 <strong>합벡터</strong>입니다.</li>
+<li>17번째 줄의 초록 화살표가 <strong>"원점에서 최종 도착점까지의 지름길"</strong> — 바로 벡터 덧셈의 기하학적 의미입니다!</li>
+</ul>
+<h3 id="v3-pos">v3: pos 이동에 벡터 활용하기<a class="headerlink" href="#v3-pos" title="Permanent link">&para;</a></h3>
+<p>이제 핵심입니다! 벡터를 <strong>물체의 위치 변경</strong>에 사용해봅시다. 3차시에서 <code>pos.x</code>만 바꾸던 것을, 벡터 한 줄로 깔끔하게 바꿉니다:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">scene</span> <span class="o">=</span> <span class="n">canvas</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;벡터로 위치 이동&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">cyan</span><span class="p">)</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># 이동할 방향과 거리를 벡터 하나로!</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="n">displacement</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   <span class="c1"># &lt;- 이동 벡터 (변위)</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="c1"># 위치 업데이트: 현재 위치 + 이동 벡터 = 새 위치</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="n">ball</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">displacement</span>  <span class="c1"># &lt;- 벡터 덧셈으로 위치 변경!</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;공의 새 위치:&quot;</span><span class="p">,</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>예상 출력:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>공의 새 위치: &lt;2, 1.5, 0&gt;
+</span></code></pre></div></p>
+<p><strong>이전 방식(3차시)과 비교해볼까요?</strong></p>
+<table>
+<thead>
+<tr>
+<th>3차시 방식 (성분별)</th>
+<th>4차시 방식 (벡터)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ball.pos.x = ball.pos.x + 2</code></td>
+<td><code>ball.pos = ball.pos + vector(2, 1.5, 0)</code></td>
+</tr>
+<tr>
+<td><code>ball.pos.y = ball.pos.y + 1.5</code></td>
+<td>(한 줄이면 끝!)</td>
+</tr>
+<tr>
+<td>2줄 필요, z도 바꾸면 3줄</td>
+<td><strong>1줄로 3D 이동 완료</strong> ✅</td>
+</tr>
+</tbody>
+</table>
+<p>11번째 줄 <code>ball.pos = ball.pos + displacement</code>가 바로 <strong>벡터를 활용한 위치 업데이트</strong>입니다. 이 패턴이 앞으로 속도, 가속도를 배울 때 계속 반복됩니다!</p>
+<hr />
+<h2 id="2-mag-norm-10">📖 핵심 개념 2: mag와 norm 함수 (10분)<a class="headerlink" href="#2-mag-norm-10" title="Permanent link">&para;</a></h2>
+<h3 id="_7">🎯 비유로 시작: 레시피의 "방향"과 "양"<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>카레를 만들 때 "물 500ml"라고 하면:
+- <strong>방향</strong>: 물 (다른 재료가 아님)
+- <strong>크기</strong>: 500ml (양)</p>
+<p>벡터도 마찬가지입니다. <code>vector(3, 4, 0)</code>에는:
+- <strong>방향</strong>: 오른쪽으로 약간, 위로 조금 더 (3:4 비율)
+- <strong>크기</strong>: 이 벡터의 총 길이</p>
+<p>이 둘을 <strong>분리해서</strong> 다룰 수 있으면 매우 강력합니다! 🔧</p>
+<h3 id="mag-norm">🔎 정의: mag와 norm<a class="headerlink" href="#mag-norm" title="Permanent link">&para;</a></h3>
+<blockquote>
+<ul>
+<li><strong><code>mag(v)</code></strong> 또는 <strong><code>v.mag</code></strong>: 벡터 v의 <strong>크기(magnitude)</strong> 를 반환합니다. 피타고라스 정리로 계산됩니다: √(x² + y² + z²)</li>
+<li><strong><code>norm(v)</code></strong> 또는 <strong><code>hat(v)</code></strong> 또는 <strong><code>v.hat</code></strong>: 벡터 v와 <strong>같은 방향</strong>이지만 <strong>크기가 1</strong>인 벡터(단위벡터)를 반환합니다.</li>
+</ul>
+</blockquote>
+<div class="mermaid">flowchart LR
+    A["벡터 v&lt;br/&gt;(3, 4, 0)"] --&gt; B["mag: 크기&lt;br/&gt;= 5.0"]
+    A --&gt; C["norm: 방향&lt;br/&gt;= (0.6, 0.8, 0)"]
+    B --&gt; D["크기 × 방향&lt;br/&gt;= 원래 벡터 복원!"]
+    C --&gt; D</div>
+<h3 id="v1-mag">v1: mag 사용해보기<a class="headerlink" href="#v1-mag" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="n">v</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="c1"># 벡터의 크기(길이) 구하기</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="n">length</span> <span class="o">=</span> <span class="n">mag</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>                <span class="c1"># &lt;- 여기가 mag (크기 구하기)</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;벡터:&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;크기:&quot;</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="c1"># 수학적으로 확인: sqrt(3² + 4²) = sqrt(9+16) = sqrt(25) = 5</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;검증:&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>예상 출력:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>벡터: &lt;3, 4, 0&gt;
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>크기: 5.0
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>검증: 5.0
+</span></code></pre></div></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="하단/푸터" >
+        
+          
+          <a href="../chapter03/" class="md-footer__link md-footer__link--prev" aria-label="이전: 3차시: 코드에 생명 불어넣기 - while 루프로 애니메이션 만들기">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                이전
+              </span>
+              <div class="md-ellipsis">
+                3차시: 코드에 생명 불어넣기 - while 루프로 애니메이션 만들기
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../chapter05/" class="md-footer__link md-footer__link--next" aria-label="다음: 5차시: 속도를 코드로 표현하다 - 등속 운동과 경계 조건 구현하기">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                다음
+              </span>
+              <div class="md-ellipsis">
+                5차시: 속도를 코드로 표현하다 - 등속 운동과 경계 조건 구현하기
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 이명희 | <a href='https://eduflow-greatsong.fly.dev/'>EduFlow</a>로 제작
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "navigation.instant", "navigation.path", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../javascripts/title-link.js"></script>
+      
+        <script src="../javascripts/mermaid-config.js"></script>
+      
+        <script src="../javascripts/scroll-progress.js"></script>
+      
+        <script src="../javascripts/eduflow-nav.js"></script>
+      
+        <script src="../javascripts/lightbox.js"></script>
+      
+        <script src="../javascripts/quiz-engine.js"></script>
+      
+    
+  </body>
+</html>

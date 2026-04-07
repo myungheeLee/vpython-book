@@ -1,0 +1,2205 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="파이썬 기초 문법을 이미 아는 고등학생이 Vpython을 통해 코드를 3D 시각화로 살아 움직이게 만드는 10차시 자기주도형 수업 교재입니다. 매 차시 이전 코드를 확장하는 스노우볼 구조로 설계되어, 최종적으로 개인 융합 프로젝트를 완성합니다.">
+      
+      
+        <meta name="author" content="이명희 (EduFlow)">
+      
+      
+      
+        <link rel="prev" href="../chapter05/">
+      
+      
+        <link rel="next" href="../chapter07/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>6차시: 중력을 눈으로 보다 - 가속도와 포물선 운동 시뮬레이션 - Vpython으로 프로그래밍 날개 달기</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans KR";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#6-" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href=".." title="Vpython으로 프로그래밍 날개 달기" class="md-header__button md-logo" aria-label="Vpython으로 프로그래밍 날개 달기" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vpython으로 프로그래밍 날개 달기
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              6차시: 중력을 눈으로 보다 - 가속도와 포물선 운동 시뮬레이션
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="다크 모드로 전환"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드로 전환" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="라이트 모드로 전환"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드로 전환" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="공유" aria-label="공유" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter01/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../chapter04/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter07/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter10/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Vpython으로 프로그래밍 날개 달기" class="md-nav__button md-logo" aria-label="Vpython으로 프로그래밍 날개 달기" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Vpython으로 프로그래밍 날개 달기
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1차시: 첫 번째 3D 세계 만들기 - 환경 설정부터 구(sphere) 띄우기까지
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2차시: 나만의 3D 장면 꾸미기 - 색상·크기·위치로 객체 디자인하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3차시: 코드에 생명 불어넣기 - while 루프로 애니메이션 만들기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4차시: 방향이 있는 숫자 - vector()로 2D·3D 움직임 제어하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5차시: 속도를 코드로 표현하다 - 등속 운동과 경계 조건 구현하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6차시: 중력을 눈으로 보다 - 가속도와 포물선 운동 시뮬레이션
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6차시: 중력을 눈으로 보다 - 가속도와 포물선 운동 시뮬레이션
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 가속도와 중력 벡터
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 포물선 운동 시뮬레이션
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔬 발사 각도 실험
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 바닥 충돌 &amp; 궤적
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 바닥 충돌 &amp; 궤적">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔥 도입: 등속 vs 가속, 한 줄의 차이 (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#velocity-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 개념: 가속도 벡터와 velocity 갱신 패턴 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 실습: 포물선 운동 시뮬레이션 만들기 (20분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔬 탐구: 발사 각도와 속력 실험 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 정리 &amp; 평가 (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔥 도입: 등속 운동에서 빠진 한 가지
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-acceleration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 핵심 개념 1: 가속도(Acceleration)란?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 핵심 개념 1: 가속도(Acceleration)란?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎢 일상 비유: 자동차의 가속 페달
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🍎 중력 가속도: 지구가 당기는 힘
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🖥️ 코드로 표현하면?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-vpython" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 핵심 개념 2: VPython에서 중력 벡터 정의하기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 실습: 포물선 운동 시뮬레이션 만들기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💻 실습: 포물선 운동 시뮬레이션 만들기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ v1: 자유낙하 — 공을 높은 곳에서 놓아보기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ v1: 자유낙하 — 공을 높은 곳에서 놓아보기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 코드-개념 매핑
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ v2: 포물선 운동 — 비스듬히 던지기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ v2: 포물선 운동 — 비스듬히 던지기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        왜 포물선이 될까요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐛 에러 경험: 순서를 바꾸면 어떻게 될까?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ v3: 궤적 남기기 + 바닥 충돌 완성
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ v3: 궤적 남기기 + 바닥 충돌 완성">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v3-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 v3 코드-개념 매핑
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 최종 완성: 발사 각도 입력 + 다중 궤적 비교
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7차시: 내가 조종하는 3D 세계 - 키보드·마우스 입력으로 객체 제어하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8차시: 객체가 많아지면? - 리스트로 여러 3D 객체 한꺼번에 다루기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9차시: 부딪히면 반응하라! - 충돌 감지와 에러 디버깅 실전
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10차시: 나만의 3D 시뮬레이션 완성 - 미니 프로젝트 설계·코딩·공유
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 가속도와 중력 벡터
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 포물선 운동 시뮬레이션
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔬 발사 각도 실험
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 바닥 충돌 &amp; 궤적
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 바닥 충돌 &amp; 궤적">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔥 도입: 등속 vs 가속, 한 줄의 차이 (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#velocity-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 개념: 가속도 벡터와 velocity 갱신 패턴 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 실습: 포물선 운동 시뮬레이션 만들기 (20분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔬 탐구: 발사 각도와 속력 실험 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 정리 &amp; 평가 (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔥 도입: 등속 운동에서 빠진 한 가지
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-acceleration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 핵심 개념 1: 가속도(Acceleration)란?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 핵심 개념 1: 가속도(Acceleration)란?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎢 일상 비유: 자동차의 가속 페달
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🍎 중력 가속도: 지구가 당기는 힘
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🖥️ 코드로 표현하면?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-vpython" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 핵심 개념 2: VPython에서 중력 벡터 정의하기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 실습: 포물선 운동 시뮬레이션 만들기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💻 실습: 포물선 운동 시뮬레이션 만들기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ v1: 자유낙하 — 공을 높은 곳에서 놓아보기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ v1: 자유낙하 — 공을 높은 곳에서 놓아보기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 코드-개념 매핑
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ v2: 포물선 운동 — 비스듬히 던지기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ v2: 포물선 운동 — 비스듬히 던지기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        왜 포물선이 될까요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐛 에러 경험: 순서를 바꾸면 어떻게 될까?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ v3: 궤적 남기기 + 바닥 충돌 완성
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ v3: 궤적 남기기 + 바닥 충돌 완성">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v3-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 v3 코드-개념 매핑
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 최종 완성: 발사 각도 입력 + 다중 궤적 비교
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="네비게이션" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href=".." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../chapter04/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="6-">6차시: 중력을 눈으로 보다 - 가속도와 포물선 운동 시뮬레이션<a class="headerlink" href="#6-" title="Permanent link">&para;</a></h1>
+<div class="lesson-banner">
+<p><strong>⏰ 50분</strong> · 가속도 · 중력 벡터 · 포물선 운동 · 궤적 시각화 · <strong>난이도</strong> ●●●○○</p>
+<p><strong>학습목표</strong>: 가속도 벡터(gravity)를 정의하고, <code>velocity += gravity * dt</code> 패턴으로 포물선 운동을 시뮬레이션할 수 있다.</p>
+<blockquote>
+<p><strong>오늘의 질문</strong>: "농구공을 던지면 왜 직선이 아니라 곡선으로 날아갈까요? 그 곡선을 코드 한 줄로 만들 수 있다면?"</p>
+</blockquote>
+</div>
+<hr />
+<div class="cards-grid">
+<div class="card card-orange">
+<h3 id="_1">🧠 가속도와 중력 벡터<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>속도를 매 순간 바꾸는 힘, <code>gravity = vector(0, -9.8, 0)</code> 한 줄의 마법</p>
+</div>
+<div class="card card-blue">
+<h3 id="_2">💻 포물선 운동 시뮬레이션<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>등속 운동 코드에 딱 한 줄을 추가해서 공이 곡선을 그리게 만들기</p>
+</div>
+<div class="card card-green">
+<h3 id="_3">🔬 발사 각도 실험<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>초기 속도의 방향과 크기를 바꾸며 궤적 변화를 탐구하기</p>
+</div>
+<div class="card card-purple">
+<h3 id="_4">🎯 바닥 충돌 &amp; 궤적<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p><code>make_trail</code>로 아름다운 포물선을 남기고, 바닥에 닿으면 멈추기</p>
+</div>
+</div>
+<hr />
+<div class="steps">
+<div class="step">
+<h4 id="vs-5">🔥 도입: 등속 vs 가속, 한 줄의 차이 (5분)<a class="headerlink" href="#vs-5" title="Permanent link">&para;</a></h4>
+<p>5차시 등속 운동 코드를 떠올리며, "속도가 변한다"는 것이 무엇인지 체감합니다. 농구공을 위로 던졌을 때의 경험을 떠올려봅니다.</p>
+</div>
+<div class="step">
+<h4 id="velocity-10">📚 개념: 가속도 벡터와 velocity 갱신 패턴 (10분)<a class="headerlink" href="#velocity-10" title="Permanent link">&para;</a></h4>
+<p>가속도의 정의를 일상 비유로 이해하고, <code>velocity += gravity * dt</code> 패턴이 왜 작동하는지 코드-개념 매핑으로 학습합니다.</p>
+</div>
+<div class="step">
+<h4 id="20">💻 실습: 포물선 운동 시뮬레이션 만들기 (20분)<a class="headerlink" href="#20" title="Permanent link">&para;</a></h4>
+<p>v1(자유낙하) → v2(포물선 운동) → v3(궤적 + 바닥 충돌)으로 점진적으로 코드를 완성합니다. 에러 경험도 포함됩니다.</p>
+</div>
+<div class="step">
+<h4 id="10">🔬 탐구: 발사 각도와 속력 실험 (10분)<a class="headerlink" href="#10" title="Permanent link">&para;</a></h4>
+<p>초기 속도의 각도와 크기를 바꿔가며 궤적이 어떻게 달라지는지 실험하고 결과를 정리합니다.</p>
+</div>
+<div class="step">
+<h4 id="5">📝 정리 &amp; 평가 (5분)<a class="headerlink" href="#5" title="Permanent link">&para;</a></h4>
+<p>핵심 개념을 복습하고, 형성 평가와 자기점검으로 학습을 마무리합니다.</p>
+</div>
+</div>
+<hr />
+<h2 id="_5">🔥 도입: 등속 운동에서 빠진 한 가지<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>여러분, 5차시에서 공이 일직선으로 쭉 날아가는 등속 운동을 만들었습니다. 기억나시나요?</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">ball</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">velocity</span> <span class="o">*</span> <span class="n">dt</span>
+</span></code></pre></div>
+<p>이 코드에서 <code>velocity</code>는 <strong>절대 변하지 않았습니다</strong>. 공은 마치 우주 공간에서 날아가듯, 한 방향으로 영원히 직진했습니다.</p>
+<p>그런데 현실에서 농구공을 던지면 어떻게 되나요?</p>
+<ul>
+<li>처음에는 위로 올라가다가...</li>
+<li>점점 <strong>느려지면서</strong>...</li>
+<li>꼭대기에서 잠깐 멈췄다가...</li>
+<li>아래로 <strong>점점 빨라지면서</strong> 떨어집니다</li>
+</ul>
+<p>이 모든 현상의 원인은 딱 하나, <strong>중력이 속도를 매 순간 바꾸고 있기 때문</strong>입니다.</p>
+<p>놀라운 사실을 알려드릴게요. 이 복잡해 보이는 현상을 코드 <strong>딱 한 줄</strong>을 추가하는 것만으로 재현할 수 있습니다!</p>
+<hr />
+<h2 id="1-acceleration">📚 핵심 개념 1: 가속도(Acceleration)란?<a class="headerlink" href="#1-acceleration" title="Permanent link">&para;</a></h2>
+<h3 id="_6">🎢 일상 비유: 자동차의 가속 페달<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>자동차를 생각해보세요.</p>
+<table>
+<thead>
+<tr>
+<th>상황</th>
+<th>속도 변화</th>
+<th>가속도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>가속 페달을 밟는다</td>
+<td>속도가 점점 빨라진다</td>
+<td>양(+)의 가속도</td>
+</tr>
+<tr>
+<td>브레이크를 밟는다</td>
+<td>속도가 점점 느려진다</td>
+<td>음(-)의 가속도</td>
+</tr>
+<tr>
+<td>크루즈 컨트롤 (일정 속도)</td>
+<td>속도가 변하지 않는다</td>
+<td>가속도 = 0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>가속도는 "속도가 얼마나 빠르게 변하는지"를 나타내는 값입니다.</strong></p>
+<ul>
+<li><strong>속도(velocity)</strong>: 위치가 시간에 따라 변하는 비율 → <code>위치 변화량 / 시간</code></li>
+<li><strong>가속도(acceleration)</strong>: 속도가 시간에 따라 변하는 비율 → <code>속도 변화량 / 시간</code></li>
+</ul>
+<h3 id="_7">🍎 중력 가속도: 지구가 당기는 힘<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>지구 위의 모든 물체는 아래 방향으로 <strong>초당 9.8 m/s씩</strong> 속도가 증가합니다. 이것이 바로 <strong>중력 가속도</strong> <code>g = 9.8 m/s²</code>입니다.</p>
+<table>
+<thead>
+<tr>
+<th>시간 (초)</th>
+<th>속도 (m/s)</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>가만히 놓은 순간</td>
+</tr>
+<tr>
+<td>1</td>
+<td>9.8</td>
+<td>1초 후</td>
+</tr>
+<tr>
+<td>2</td>
+<td>19.6</td>
+<td>2초 후</td>
+</tr>
+<tr>
+<td>3</td>
+<td>29.4</td>
+<td>3초 후</td>
+</tr>
+</tbody>
+</table>
+<p>매 초마다 속도가 9.8씩 증가합니다! 이것이 "가속"입니다.</p>
+<h3 id="_8">🖥️ 코드로 표현하면?<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>5차시의 등속 운동 패턴을 기억해보세요:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>매 프레임마다:
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    위치 += 속도 × dt
+</span></code></pre></div>
+<p>여기에 가속도를 추가하면:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>매 프레임마다:
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    속도 += 가속도 × dt    ← ✨ 새로 추가된 한 줄!
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    위치 += 속도 × dt
+</span></code></pre></div>
+<p><strong>순서가 중요합니다!</strong> 먼저 속도를 갱신하고, 갱신된 속도로 위치를 갱신합니다.</p>
+<p>아래 다이어그램은 등속 운동과 가속 운동의 루프 차이를 보여줍니다:</p>
+<div class="mermaid">flowchart TD
+    A[시뮬레이션 시작] --&gt; B{매 프레임 반복}
+    B --&gt; C["① 속도 갱신&lt;br/&gt;velocity += gravity × dt"]
+    C --&gt; D["② 위치 갱신&lt;br/&gt;ball.pos += velocity × dt"]
+    D --&gt; E[화면에 공 그리기]
+    E --&gt; B
+
+    style C fill:#ff9800,color:#fff
+    style D fill:#4caf50,color:#fff</div>
+<p>위 다이어그램에서 주황색 <strong>① 속도 갱신</strong> 단계가 5차시에는 없었던 <strong>새로운 한 줄</strong>입니다. 이 한 줄이 등속 운동을 가속 운동으로 바꿔줍니다!</p>
+<hr />
+<h2 id="2-vpython">📚 핵심 개념 2: VPython에서 중력 벡터 정의하기<a class="headerlink" href="#2-vpython" title="Permanent link">&para;</a></h2>
+<p>중력은 <strong>아래 방향</strong>으로 작용합니다. VPython에서 y축이 위아래이므로:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">gravity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.8</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>성분</th>
+<th>값</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>0</td>
+<td>좌우로는 힘이 없음</td>
+</tr>
+<tr>
+<td>y</td>
+<td>-9.8</td>
+<td><strong>아래 방향</strong>으로 9.8 m/s²</td>
+</tr>
+<tr>
+<td>z</td>
+<td>0</td>
+<td>앞뒤로는 힘이 없음</td>
+</tr>
+</tbody>
+</table>
+<p><strong>마이너스(-)</strong> 인 이유는 VPython에서 y축 위쪽이 +, 아래쪽이 -이기 때문입니다. 중력은 아래로 당기니까 -9.8이 됩니다.</p>
+<hr />
+<h2 id="_9">💻 실습: 포물선 운동 시뮬레이션 만들기<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>실행 환경</strong>: VPython 3.2 (GlowScript 또는 로컬 vpython 패키지)</p>
+</blockquote>
+<h3 id="v1">🏗️ v1: 자유낙하 — 공을 높은 곳에서 놓아보기<a class="headerlink" href="#v1" title="Permanent link">&para;</a></h3>
+<p>가장 간단한 가속 운동부터 시작합시다. 공을 높은 곳에 놓으면 중력에 의해 아래로 떨어지는 <strong>자유낙하</strong>입니다.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># 장면 설정</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">scene</span> <span class="o">=</span> <span class="n">canvas</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;v1: 자유낙하&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># 바닥</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">ground</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">green</span><span class="p">)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># 공: 높은 곳(y=10)에서 시작</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="c1"># 초기 속도: 정지 상태에서 출발</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="n">velocity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="c1"># 중력 가속도 벡터  # &lt;- 여기가 [가속도 벡터 정의]</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="n">gravity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.8</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span>  <span class="c1"># 시간 간격</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="k">while</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="n">ball</span><span class="o">.</span><span class="n">radius</span><span class="p">:</span>  <span class="c1"># 바닥에 닿을 때까지</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>    <span class="n">rate</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># 초당 100프레임</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>    <span class="n">velocity</span> <span class="o">=</span> <span class="n">velocity</span> <span class="o">+</span> <span class="n">gravity</span> <span class="o">*</span> <span class="n">dt</span>    <span class="c1"># &lt;- 여기가 [속도 갱신]</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>    <span class="n">ball</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">velocity</span> <span class="o">*</span> <span class="n">dt</span>   <span class="c1"># &lt;- 여기가 [위치 갱신]</span>
+</span></code></pre></div>
+<p><strong>실행 결과</strong>: 빨간 공이 높이 10m에서 시작해 점점 빨라지면서 아래로 떨어집니다. 바닥(y=0 근처)에 닿으면 멈춥니다.</p>
+<h4 id="-">🔍 코드-개념 매핑<a class="headerlink" href="#-" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>7번째 줄</strong> <code>gravity = vector(0, -9.8, 0)</code> — 이것이 바로 <strong>중력 가속도 벡터</strong>입니다. y 방향으로 -9.8을 넣어 "아래로 당기는 힘"을 표현합니다.</li>
+<li><strong>12번째 줄</strong> <code>velocity = velocity + gravity * dt</code> — 이것이 바로 <strong>속도 갱신</strong> 패턴입니다. 매 프레임마다 중력이 속도를 조금씩 바꿉니다. <code>gravity * dt</code>는 아주 짧은 시간(0.01초) 동안 속도가 변하는 양입니다.</li>
+<li><strong>13번째 줄</strong> <code>ball.pos = ball.pos + velocity * dt</code> — 5차시에서 배운 <strong>위치 갱신</strong> 패턴과 동일합니다. 다만 이제 <code>velocity</code>가 매번 바뀌므로 공이 가속됩니다!</li>
+<li><strong>10번째 줄</strong> <code>while ball.pos.y &gt;= ball.radius</code> — 공의 중심이 반지름만큼 내려오면 바닥에 닿은 것으로 판단합니다. 이것이 <strong>바닥 충돌 조건</strong>입니다.</li>
+</ul>
+<blockquote>
+<p>💡 <strong>핵심 포인트</strong>: 5차시 등속 운동 코드와 비교하면, 정말로 <strong>한 줄(<code>velocity = velocity + gravity * dt</code>)만 추가</strong>되었습니다. 이 한 줄이 직선 운동을 가속 운동으로 바꿉니다!</p>
+</blockquote>
+<hr />
+<h3 id="v2">🏗️ v2: 포물선 운동 — 비스듬히 던지기<a class="headerlink" href="#v2" title="Permanent link">&para;</a></h3>
+<p>자유낙하는 직선이었습니다. 이제 공에 <strong>비스듬한 초기 속도</strong>를 주어서 포물선을 만들어봅시다!</p>
+<p><strong>v1에서 바뀐 부분</strong>: 초기 속도를 <code>vector(0, 0, 0)</code> → <code>vector(5, 15, 0)</code>으로 변경했습니다. 오른쪽으로 5 m/s, 위쪽으로 15 m/s의 속도로 던지는 것입니다.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># 장면 설정</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">scene</span> <span class="o">=</span> <span class="n">canvas</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;v2: 포물선 운동&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>  <span class="c1"># 카메라 위치 조정</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1"># 바닥</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="n">ground</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">green</span><span class="p">)</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1"># 공: 왼쪽 아래에서 시작</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="c1"># ✨ 비스듬한 초기 속도: 오른쪽(+x) + 위쪽(+y)  # &lt;- 여기가 [초기 속도]</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="n">velocity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="c1"># 중력 가속도</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="n">gravity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.8</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="k">while</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="n">ball</span><span class="o">.</span><span class="n">radius</span><span class="p">:</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>    <span class="n">rate</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>    <span class="n">velocity</span> <span class="o">=</span> <span class="n">velocity</span> <span class="o">+</span> <span class="n">gravity</span> <span class="o">*</span> <span class="n">dt</span>    <span class="c1"># 속도 갱신: 중력이 매 프레임 속도를 바꿈</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>    <span class="n">ball</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">velocity</span> <span class="o">*</span> <span class="n">dt</span>   <span class="c1"># 위치 갱신: 바뀐 속도로 이동</span>
+</span></code></pre></div>
+<p><strong>실행 결과</strong>: 공이 왼쪽 아래에서 출발하여 오른쪽 위로 올라갔다가, 꼭대기에서 잠시 느려지고, 다시 아래로 떨어지며 <strong>아름다운 포물선</strong>을 그립니다! 🎉</p>
+<h4 id="_10">왜 포물선이 될까요?<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>방향</th>
+<th>속도 변화</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x(가로)</td>
+<td>변하지 않음 (계속 5 m/s)</td>
+<td>중력의 x 성분이 0이므로</td>
+</tr>
+<tr>
+<td>y(세로)</td>
+<td>계속 줄어듦 (15 → 0 → -15...)</td>
+<td>중력이 y 방향으로 -9.8씩 감소시킴</td>
+</tr>
+</tbody>
+</table>
+<p>가로는 등속, 세로는 가속 → 이 두 운동이 합쳐져서 <strong>포물선</strong>이 됩니다!</p>
+<div class="mermaid">flowchart LR
+    A["가로 운동&lt;br/&gt;등속 (v_x 일정)"] --&gt; C["합성 결과&lt;br/&gt;🏀 포물선 궤적"]
+    B["세로 운동&lt;br/&gt;가속 (v_y 변화)"] --&gt; C</div>
+<hr />
+<h3 id="_11">🐛 에러 경험: 순서를 바꾸면 어떻게 될까?<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>여기서 잠깐! 다음 코드를 한번 살펴보세요. 뭔가 이상한 점이 있습니다.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">scene</span> <span class="o">=</span> <span class="n">canvas</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;에러 체험: 순서 실수&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">ground</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">green</span><span class="p">)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">velocity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">gravity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.8</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="k">while</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="n">ball</span><span class="o">.</span><span class="n">radius</span><span class="p">:</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    <span class="n">rate</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    <span class="c1"># ⚠️ 위치를 먼저 갱신하고, 속도를 나중에 갱신했습니다!</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    <span class="n">ball</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">velocity</span> <span class="o">*</span> <span class="n">dt</span>   <span class="c1"># 위치 먼저!</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="n">velocity</span> <span class="o">=</span> <span class="n">velocity</span> <span class="o">+</span> <span class="n">gravity</span> <span class="o">*</span> <span class="n">dt</span>    <span class="c1"># 속도 나중에!</span>
+</span></code></pre></div>
+<blockquote>
+<p><strong>🤔 질문</strong>: 이 코드를 실행하면 에러가 날까요?</p>
+</blockquote>
+<p><strong>답</strong>: 에러는 나지 않습니다! 하지만 결과가 미묘하게 달라집니다.</p>
+<table>
+<thead>
+<tr>
+<th>정상 순서 (v2)</th>
+<th>잘못된 순서 (위 코드)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>속도 먼저 갱신 → 위치 갱신</td>
+<td>위치 먼저 갱신 → 속도 갱신</td>
+</tr>
+<tr>
+<td>이번 프레임의 새 속도로 이동</td>
+<td>이전 프레임의 옛 속도로 이동</td>
+</tr>
+<tr>
+<td>더 정확한 시뮬레이션</td>
+<td>약간의 오차가 누적됨</td>
+</tr>
+</tbody>
+</table>
+<p>dt가 0.01처럼 작으면 눈으로는 차이를 거의 못 느끼지만, dt를 0.1이나 0.5로 크게 하면 궤적 차이가 눈에 보입니다. <strong>물리 시뮬레이션에서는 순서가 중요합니다!</strong></p>
+<blockquote>
+<p>✅ <strong>기억하세요</strong>: 항상 <strong>속도 먼저, 위치 나중에!</strong></p>
+</blockquote>
+<hr />
+<h3 id="v3">🏗️ v3: 궤적 남기기 + 바닥 충돌 완성<a class="headerlink" href="#v3" title="Permanent link">&para;</a></h3>
+<p>포물선이 만들어지지만, 공이 지나간 자리가 보이지 않으니 아쉽습니다. <strong>궤적(trail)</strong> 을 남겨서 포물선을 눈으로 확인해봅시다!</p>
+<p><strong>v2에서 바뀐 부분</strong>:
+1. <code>make_trail=True</code> 옵션 추가 → 공이 지나간 경로를 선으로 표시
+2. <code>trail_color</code>, <code>trail_radius</code> 추가 → 궤적을 예쁘게 꾸미기
+3. <code>while</code> 조건 개선 → 바닥 충돌 후 공을 정확히 멈추기
+4. 시작/착지 표시 추가</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># 장면 설정</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">scene</span> <span class="o">=</span> <span class="n">canvas</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;v3: 포물선 궤적 시각화&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">18</span><span class="p">)</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># 바닥</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">ground</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">green</span><span class="p">)</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># 공: make_trail로 궤적을 남김  # &lt;- 여기가 [궤적 시각화]</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">,</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>    <span class="n">make_trail</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>         <span class="c1"># 궤적 남기기 ON</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    <span class="n">trail_color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">yellow</span><span class="p">,</span> <span class="c1"># 궤적 색상</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>    <span class="n">trail_radius</span><span class="o">=</span><span class="mf">0.05</span>        <span class="c1"># 궤적 선 두께</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="p">)</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="c1"># 시작점 표시</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">cyan</span><span class="p">)</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="c1"># 초기 속도와 중력</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="n">velocity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="n">gravity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.8</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="c1"># 시뮬레이션 루프</span>
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="k">while</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="n">ball</span><span class="o">.</span><span class="n">radius</span><span class="p">:</span>  <span class="c1"># &lt;- 여기가 [바닥 충돌 조건]</span>
+</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a>    <span class="n">rate</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a>
+</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>    <span class="n">velocity</span> <span class="o">=</span> <span class="n">velocity</span> <span class="o">+</span> <span class="n">gravity</span> <span class="o">*</span> <span class="n">dt</span>    <span class="c1"># ① 속도 갱신</span>
+</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a>    <span class="n">ball</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">velocity</span> <span class="o">*</span> <span class="n">dt</span>   <span class="c1"># ② 위치 갱신</span>
+</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a>
+</span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a><span class="c1"># 바닥에 닿으면 정확한 위치에 멈추기</span>
+</span><span id="__span-7-36"><a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a><span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">ball</span><span class="o">.</span><span class="n">radius</span>  <span class="c1"># 공이 바닥에 살짝 얹힌 상태</span>
+</span><span id="__span-7-37"><a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a>
+</span><span id="__span-7-38"><a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a><span class="c1"># 착지점 표시</span>
+</span><span id="__span-7-39"><a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a><span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">orange</span><span class="p">)</span>
+</span><span id="__span-7-40"><a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a>
+</span><span id="__span-7-41"><a id="__codelineno-7-41" name="__codelineno-7-41" href="#__codelineno-7-41"></a><span class="c1"># 비행 거리 출력</span>
+</span><span id="__span-7-42"><a id="__codelineno-7-42" name="__codelineno-7-42" href="#__codelineno-7-42"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;착지 x 좌표:&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">ball</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;m&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>착지 x 좌표: 15.31 m
+</span></code></pre></div>
+<p><strong>실행 결과</strong>: 빨간 공이 날아가면서 <strong>노란색 포물선 궤적</strong>이 화면에 남습니다. 시작점(하늘색)과 착지점(주황색)이 표시되어 비행 거리를 한눈에 볼 수 있습니다!</p>
+<h4 id="v3-">🔍 v3 코드-개념 매핑<a class="headerlink" href="#v3-" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>11~17번째 줄</strong> <code>make_trail=True</code> — <code>sphere</code>를 만들 때 이 옵션을 켜면, 공이 이동한 경로를 자동으로 선으로 그려줍니다. 이것이 <strong>궤적 시각화</strong> 기능입니다.</li>
+<li><strong>29번째 줄</strong> <code>while ball.pos.y &gt;= ball.radius</code> — 공의 중심 y좌표가 반지름 이하가 되면 반복을 멈춥니다. 이것이 <strong>바닥 충돌 판정</strong>입니다.</li>
+<li><strong>35번째 줄</strong> <code>ball.pos.y = ball.radius</code> — 루프가 끝난 후 공의 y좌표를 정확히 반지름 높이로 맞춰서, 공이 바닥을 뚫고 내려가지 않게 합니다.</li>
+</ul>
+<blockquote>
+<p>🎉 여기까지가 포물선 시뮬레이션의 핵심입니다! 5차시 등속 운동 코드에서 실질적으로 추가된 것은 <code>gravity</code> 정의와 <code>velocity += gravity * dt</code> 한 줄뿐입니다.</p>
+</blockquote>
+<hr />
+<h3 id="_12">🏗️ 최종 완성: 발사 각도 입력 + 다중 궤적 비교<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>마지막으로, <strong>발사 각도와 속력을 입력받아 여러 궤적을 한 화면에 비교</strong>하는 완성 버전입니다.</p>
+<p><strong>v3에서 바뀐 부분</strong>:
+1. <code>math.cos</code>, <code>math.sin</code>으로 각도 → 속도 벡터 변환
+2. 함수(<code>launch_ball</code>)로 분리하여 재사용 가능
+3. 여러 각도를 반복문</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="하단/푸터" >
+        
+          
+          <a href="../chapter05/" class="md-footer__link md-footer__link--prev" aria-label="이전: 5차시: 속도를 코드로 표현하다 - 등속 운동과 경계 조건 구현하기">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                이전
+              </span>
+              <div class="md-ellipsis">
+                5차시: 속도를 코드로 표현하다 - 등속 운동과 경계 조건 구현하기
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../chapter07/" class="md-footer__link md-footer__link--next" aria-label="다음: 7차시: 내가 조종하는 3D 세계 - 키보드·마우스 입력으로 객체 제어하기">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                다음
+              </span>
+              <div class="md-ellipsis">
+                7차시: 내가 조종하는 3D 세계 - 키보드·마우스 입력으로 객체 제어하기
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 이명희 | <a href='https://eduflow-greatsong.fly.dev/'>EduFlow</a>로 제작
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "navigation.instant", "navigation.path", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../javascripts/title-link.js"></script>
+      
+        <script src="../javascripts/mermaid-config.js"></script>
+      
+        <script src="../javascripts/scroll-progress.js"></script>
+      
+        <script src="../javascripts/eduflow-nav.js"></script>
+      
+        <script src="../javascripts/lightbox.js"></script>
+      
+        <script src="../javascripts/quiz-engine.js"></script>
+      
+    
+  </body>
+</html>

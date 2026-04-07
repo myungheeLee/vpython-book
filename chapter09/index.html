@@ -1,0 +1,2157 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="파이썬 기초 문법을 이미 아는 고등학생이 Vpython을 통해 코드를 3D 시각화로 살아 움직이게 만드는 10차시 자기주도형 수업 교재입니다. 매 차시 이전 코드를 확장하는 스노우볼 구조로 설계되어, 최종적으로 개인 융합 프로젝트를 완성합니다.">
+      
+      
+        <meta name="author" content="이명희 (EduFlow)">
+      
+      
+      
+        <link rel="prev" href="../chapter08/">
+      
+      
+        <link rel="next" href="../chapter10/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>9차시: 부딪히면 반응하라! - 충돌 감지와 에러 디버깅 실전 - Vpython으로 프로그래밍 날개 달기</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans KR";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#9-" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href=".." title="Vpython으로 프로그래밍 날개 달기" class="md-header__button md-logo" aria-label="Vpython으로 프로그래밍 날개 달기" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vpython으로 프로그래밍 날개 달기
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              9차시: 부딪히면 반응하라! - 충돌 감지와 에러 디버깅 실전
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="다크 모드로 전환"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드로 전환" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="라이트 모드로 전환"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드로 전환" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="공유" aria-label="공유" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter01/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter04/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../chapter07/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter10/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Vpython으로 프로그래밍 날개 달기" class="md-nav__button md-logo" aria-label="Vpython으로 프로그래밍 날개 달기" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Vpython으로 프로그래밍 날개 달기
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1차시: 첫 번째 3D 세계 만들기 - 환경 설정부터 구(sphere) 띄우기까지
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2차시: 나만의 3D 장면 꾸미기 - 색상·크기·위치로 객체 디자인하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3차시: 코드에 생명 불어넣기 - while 루프로 애니메이션 만들기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4차시: 방향이 있는 숫자 - vector()로 2D·3D 움직임 제어하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5차시: 속도를 코드로 표현하다 - 등속 운동과 경계 조건 구현하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6차시: 중력을 눈으로 보다 - 가속도와 포물선 운동 시뮬레이션
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7차시: 내가 조종하는 3D 세계 - 키보드·마우스 입력으로 객체 제어하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8차시: 객체가 많아지면? - 리스트로 여러 3D 객체 한꺼번에 다루기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9차시: 부딪히면 반응하라! - 충돌 감지와 에러 디버깅 실전
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9차시: 부딪히면 반응하라! - 충돌 감지와 에러 디버깅 실전
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 핵심 주제 카드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 핵심 주제 카드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 충돌 감지 원리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 충돌 반응 구현
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐛 에러 디버깅 실전
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 트러블슈팅 훈련
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏱️ 수업 흐름
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏱️ 수업 흐름">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1단계: 도입 — 충돌이란 무엇인가? (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-mag-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2단계: 핵심 개념 — mag()와 거리 계산 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3단계: 따라하기 실습 — 충돌 감지 &amp; 반응 구현 (20분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4단계: 에러 디버깅 실전 훈련 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5단계: 마무리 — 정리 &amp; 성찰 (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 핵심 개념 설명
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 핵심 개념 설명">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔑 개념 1: 충돌 감지 — "두 물체 사이의 거리"로 판단한다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔑 개념 1: 충돌 감지 — &#34;두 물체 사이의 거리&#34;로 판단한다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎳 일상 비유: 볼링공과 핀
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📐 정확한 정의
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧮 mag() 함수란?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔑 개념 2: 에러 디버깅 — "에러 메시지는 컴퓨터가 보내는 도움 요청"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔑 개념 2: 에러 디버깅 — &#34;에러 메시지는 컴퓨터가 보내는 도움 요청&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📬 일상 비유: 택배 배송 실패 문자
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 에러 메시지 읽는 법
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 따라하기 실습: 충돌 감지 &amp; 반응 구현
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💻 따라하기 실습: 충돌 감지 &amp; 반응 구현">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ v1: 가장 기본 — 두 공의 거리 확인하기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ v2: 충돌 감지 추가 — "부딪히면 색이 바뀐다!"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ v3: 충돌 반응 개선 — 방향 반전(튕겨나가기)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ 에러 경험: 이 코드를 실행하면 어떤 에러가 날까요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 최종 완성: 다중 공 충돌 + 복합 반응
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10차시: 나만의 3D 시뮬레이션 완성 - 미니 프로젝트 설계·코딩·공유
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 핵심 주제 카드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 핵심 주제 카드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 충돌 감지 원리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 충돌 반응 구현
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐛 에러 디버깅 실전
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 트러블슈팅 훈련
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏱️ 수업 흐름
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏱️ 수업 흐름">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1단계: 도입 — 충돌이란 무엇인가? (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-mag-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2단계: 핵심 개념 — mag()와 거리 계산 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3단계: 따라하기 실습 — 충돌 감지 &amp; 반응 구현 (20분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4단계: 에러 디버깅 실전 훈련 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5단계: 마무리 — 정리 &amp; 성찰 (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 핵심 개념 설명
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 핵심 개념 설명">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔑 개념 1: 충돌 감지 — "두 물체 사이의 거리"로 판단한다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔑 개념 1: 충돌 감지 — &#34;두 물체 사이의 거리&#34;로 판단한다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎳 일상 비유: 볼링공과 핀
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📐 정확한 정의
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧮 mag() 함수란?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔑 개념 2: 에러 디버깅 — "에러 메시지는 컴퓨터가 보내는 도움 요청"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔑 개념 2: 에러 디버깅 — &#34;에러 메시지는 컴퓨터가 보내는 도움 요청&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📬 일상 비유: 택배 배송 실패 문자
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 에러 메시지 읽는 법
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 따라하기 실습: 충돌 감지 &amp; 반응 구현
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💻 따라하기 실습: 충돌 감지 &amp; 반응 구현">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ v1: 가장 기본 — 두 공의 거리 확인하기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ v2: 충돌 감지 추가 — "부딪히면 색이 바뀐다!"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ v3: 충돌 반응 개선 — 방향 반전(튕겨나가기)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ 에러 경험: 이 코드를 실행하면 어떤 에러가 날까요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 최종 완성: 다중 공 충돌 + 복합 반응
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="네비게이션" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href=".." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../chapter07/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="9-">9차시: 부딪히면 반응하라! - 충돌 감지와 에러 디버깅 실전<a class="headerlink" href="#9-" title="Permanent link">&para;</a></h1>
+<div class="lesson-banner">
+<p><strong>⏰ 50분</strong> · 충돌 감지 · mag() 거리 계산 · 에러 디버깅 · 반응 구현 · <strong>난이도</strong> ●●●○○</p>
+<p><strong>학습목표</strong>: 두 객체 사이의 거리를 계산하여 충돌을 감지하고, 다양한 반응을 구현하며, 자주 발생하는 에러를 스스로 해결할 수 있다.</p>
+<blockquote>
+<p><strong>오늘의 질문</strong>: "자동차 게임에서 내 차가 장애물에 '부딪혔다'는 걸, 컴퓨터는 어떻게 알까요?"</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="_1">🎯 핵심 주제 카드<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="cards-grid">
+<div class="card card-orange">
+<h3 id="_2">🧠 충돌 감지 원리<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>두 객체 사이 거리를 <code>mag()</code>로 계산하여<br/>반지름의 합과 비교하는 조건식</p>
+</div>
+<div class="card card-blue">
+<h3 id="_3">💻 충돌 반응 구현<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>색상 변경, 속도 반전, 객체 소멸 등<br/>충돌 시 다양한 시각적 반응 코딩</p>
+</div>
+<div class="card card-red">
+<h3 id="_4">🐛 에러 디버깅 실전<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>AttributeError, 무한루프, rate 누락 등<br/>대표 에러 5가지 원인 파악과 해결</p>
+</div>
+<div class="card card-green">
+<h3 id="_5">💬 트러블슈팅 훈련<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>에러 메시지를 읽고 원인을 추론하는<br/>디버깅 습관 기르기</p>
+</div>
+</div>
+<hr />
+<h2 id="_6">⏱️ 수업 흐름<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<div class="steps">
+<div class="step">
+<h4 id="1-5">1단계: 도입 — 충돌이란 무엇인가? (5분)<a class="headerlink" href="#1-5" title="Permanent link">&para;</a></h4>
+<p>일상 속 '부딪힘'의 원리를 떠올리고, 컴퓨터가 충돌을 판단하는 방식을 비유로 이해합니다.</p>
+</div>
+<div class="step">
+<h4 id="2-mag-10">2단계: 핵심 개념 — mag()와 거리 계산 (10분)<a class="headerlink" href="#2-mag-10" title="Permanent link">&para;</a></h4>
+<p>두 객체 사이 거리를 <code>mag()</code> 함수로 구하고, 반지름의 합과 비교하는 충돌 조건식을 학습합니다.</p>
+</div>
+<div class="step">
+<h4 id="3-20">3단계: 따라하기 실습 — 충돌 감지 &amp; 반응 구현 (20분)<a class="headerlink" href="#3-20" title="Permanent link">&para;</a></h4>
+<p>v1(기본 충돌 감지) → v2(색상 변경 반응) → v3(다중 객체 충돌) → 최종(복합 반응)까지 점진적으로 코드를 완성합니다.</p>
+</div>
+<div class="step">
+<h4 id="4-10">4단계: 에러 디버깅 실전 훈련 (10분)<a class="headerlink" href="#4-10" title="Permanent link">&para;</a></h4>
+<p>VPython에서 자주 발생하는 대표 에러 5가지를 직접 만나보고, 원인을 분석하여 수정하는 훈련을 합니다.</p>
+</div>
+<div class="step">
+<h4 id="5-5">5단계: 마무리 — 정리 &amp; 성찰 (5분)<a class="headerlink" href="#5-5" title="Permanent link">&para;</a></h4>
+<p>배운 내용을 정리하고, 형성 평가와 자기점검으로 학습을 마무리합니다.</p>
+</div>
+</div>
+<hr />
+<h2 id="_7">📚 핵심 개념 설명<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="1">🔑 개념 1: 충돌 감지 — "두 물체 사이의 거리"로 판단한다<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<h4 id="_8">🎳 일상 비유: 볼링공과 핀<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p>볼링을 칠 때, 공이 핀에 <strong>닿는 순간</strong> 핀이 쓰러집니다. 사람은 눈으로 "아, 부딪혔네!" 하고 알 수 있지만, 컴퓨터에게는 눈이 없습니다. 그래서 컴퓨터는 이렇게 판단합니다:</p>
+<blockquote>
+<p>"두 물체의 <strong>중심 사이 거리</strong>가, 두 물체의 <strong>크기(반지름)의 합</strong>보다 작아지면 → 부딪힌 것이다!"</p>
+</blockquote>
+<p>이것은 마치 두 사람이 양팔을 벌리고 걸어가다가, 팔이 닿으면 "부딪혔다!"고 판정하는 것과 같습니다.</p>
+<h4 id="_9">📐 정확한 정의<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p><strong>충돌 감지(Collision Detection)</strong> 란 프로그램에서 두 객체가 겹치거나 접촉했는지를 계산으로 판별하는 것입니다. 구(sphere) 형태의 충돌 감지 공식은 다음과 같습니다:</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>의미</th>
+<th>VPython 코드</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>두 객체 사이 거리</td>
+<td>중심점과 중심점 사이의 직선 거리</td>
+<td><code>mag(ball1.pos - ball2.pos)</code></td>
+</tr>
+<tr>
+<td>반지름의 합</td>
+<td>두 구의 반지름을 더한 값</td>
+<td><code>ball1.radius + ball2.radius</code></td>
+</tr>
+<tr>
+<td>충돌 조건</td>
+<td>거리 &lt; 반지름의 합</td>
+<td><code>if distance &lt; r_sum:</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>충돌 판정 다이어그램:</strong></p>
+<div class="mermaid">flowchart TD
+    A["매 프레임마다&lt;br/&gt;반복 실행"] --&gt; B["두 객체 사이&lt;br/&gt;거리 계산"]
+    B --&gt; C{"거리 &lt; 반지름의 합?"}
+    C --&gt;|"Yes"| D["🔴 충돌! 반응 실행"]
+    C --&gt;|"No"| E["✅ 충돌 아님, 계속 이동"]
+    D --&gt; A
+    E --&gt; A</div>
+<h4 id="mag">🧮 <code>mag()</code> 함수란?<a class="headerlink" href="#mag" title="Permanent link">&para;</a></h4>
+<p>VPython의 <code>mag()</code> 함수는 <strong>벡터의 크기(magnitude)</strong>를 구합니다. 쉽게 말하면, 3차원 공간에서 <strong>두 점 사이의 거리</strong>를 한 번에 계산해주는 함수입니다.</p>
+<p>수학적으로는 피타고라스 정리의 3D 확장입니다:</p>
+<table>
+<thead>
+<tr>
+<th>수학 공식</th>
+<th>VPython 코드</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>√((x₂-x₁)² + (y₂-y₁)² + (z₂-z₁)²)</td>
+<td><code>mag(ball1.pos - ball2.pos)</code></td>
+<td>두 위치 벡터의 차이의 크기</td>
+</tr>
+</tbody>
+</table>
+<p><code>ball1.pos - ball2.pos</code>는 두 위치의 차이 벡터를 만들고, <code>mag()</code>가 그 벡터의 길이(= 거리)를 숫자로 반환합니다. 복잡한 수학을 한 줄로 해결해주는 고마운 함수입니다!</p>
+<blockquote>
+<p>💡 <strong>왜 직접 거리를 계산하지 않나요?</strong> <code>((x2-x1)**2 + (y2-y1)**2 + (z2-z1)**2)**0.5</code> 처럼 직접 쓸 수도 있지만, 코드가 길고 실수하기 쉽습니다. <code>mag()</code>는 VPython이 제공하는 편리한 도구이고, 실무에서도 이런 유틸리티 함수를 적극 활용합니다.</p>
+</blockquote>
+<hr />
+<h3 id="2">🔑 개념 2: 에러 디버깅 — "에러 메시지는 컴퓨터가 보내는 도움 요청"<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<h4 id="_10">📬 일상 비유: 택배 배송 실패 문자<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<p>택배가 배달 실패했을 때, 문자가 옵니다: "주소 불명으로 반송되었습니다." 이 문자를 무시하면 택배를 영영 못 받지만, 읽고 주소를 수정하면 다시 받을 수 있습니다.</p>
+<p><strong>에러 메시지도 마찬가지입니다.</strong> 컴퓨터가 "이런 문제가 있어서 실행을 못 하겠어요"라고 알려주는 것인데, 대부분의 초보자는 빨간 글씨만 보고 당황합니다. 하지만 <strong>에러 메시지를 차분히 읽으면, 어디서 무엇이 잘못됐는지 거의 다 알려줍니다.</strong></p>
+<h4 id="_11">🔍 에러 메시지 읽는 법<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<p>에러 메시지는 보통 세 부분으로 이루어져 있습니다:</p>
+<table>
+<thead>
+<tr>
+<th>부분</th>
+<th>의미</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>위치 (Traceback)</strong></td>
+<td>에러가 발생한 파일과 줄 번호</td>
+<td><code>line 5, in &lt;module&gt;</code></td>
+</tr>
+<tr>
+<td><strong>종류 (Error Type)</strong></td>
+<td>어떤 유형의 에러인지</td>
+<td><code>AttributeError</code></td>
+</tr>
+<tr>
+<td><strong>설명 (Message)</strong></td>
+<td>구체적으로 무엇이 문제인지</td>
+<td><code>'sphere' object has no attribute 'colour'</code></td>
+</tr>
+</tbody>
+</table>
+<div class="mermaid">flowchart LR
+    A["에러 발생!&lt;br/&gt;빨간 글씨 😱"] --&gt; B["1. 에러 종류&lt;br/&gt;확인"]
+    B --&gt; C["2. 에러 메시지&lt;br/&gt;읽기"]
+    C --&gt; D["3. 줄 번호&lt;br/&gt;확인"]
+    D --&gt; E["4. 해당 줄&lt;br/&gt;코드 점검"]
+    E --&gt; F["5. 수정 후&lt;br/&gt;다시 실행 ✅"]</div>
+<hr />
+<h2 id="_12">💻 따라하기 실습: 충돌 감지 &amp; 반응 구현<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>실행 환경</strong>: VPython 3.2 (GlowScript 또는 로컬 VPython 환경)</p>
+</blockquote>
+<h3 id="v1">🏗️ v1: 가장 기본 — 두 공의 거리 확인하기<a class="headerlink" href="#v1" title="Permanent link">&para;</a></h3>
+<p>먼저 두 개의 공을 만들고, 하나를 움직여서 <strong>거리를 측정</strong>하는 것부터 시작합니다. 아직 충돌 판정은 하지 않습니다. "일단 거리를 재보자!"가 목표입니다.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># 두 개의 공 생성 — 서로 떨어져 있는 상태</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">ball1</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">ball2</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># ball1이 오른쪽으로 이동하는 속도</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">ball1</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">rate</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>  <span class="c1"># &lt;- 초당 60프레임으로 애니메이션 제어</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">ball1</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">ball1</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">ball1</span><span class="o">.</span><span class="n">velocity</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="c1"># 두 공 사이의 거리를 계산하여 출력</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="n">distance</span> <span class="o">=</span> <span class="n">mag</span><span class="p">(</span><span class="n">ball1</span><span class="o">.</span><span class="n">pos</span> <span class="o">-</span> <span class="n">ball2</span><span class="o">.</span><span class="n">pos</span><span class="p">)</span>  <span class="c1"># &lt;- 여기가 mag() 거리 계산</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;거리: </span><span class="si">{</span><span class="n">distance</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>예상 실행 결과</strong> (콘솔에 거리가 계속 출력됩니다):
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>거리: 5.95
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>거리: 5.90
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>거리: 5.85
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>...
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>거리: 1.05
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>거리: 1.00
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>거리: 0.95
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>...
+</span></code></pre></div></p>
+<p><strong>개념-코드 매핑:</strong></p>
+<ul>
+<li>위 코드의 <strong>14번째 줄</strong> <code>distance = mag(ball1.pos - ball2.pos)</code>가 바로 <strong>두 객체 사이 거리 계산</strong>입니다. <code>ball1.pos - ball2.pos</code>로 차이 벡터를 구하고, <code>mag()</code>로 그 크기를 숫자로 변환합니다.</li>
+<li><strong>10번째 줄</strong> <code>rate(60)</code>은 애니메이션 속도를 제어합니다. 이 줄이 없으면 컴퓨터가 최대 속도로 돌려서 화면이 멈추는 것처럼 보입니다.</li>
+</ul>
+<p>거리 숫자가 점점 줄어드는 것이 보이시나요? 공이 다가가고 있다는 증거입니다! 하지만 아직 공이 겹쳐도 아무 일도 일어나지 않습니다.</p>
+<hr />
+<h3 id="v2">🏗️ v2: 충돌 감지 추가 — "부딪히면 색이 바뀐다!"<a class="headerlink" href="#v2" title="Permanent link">&para;</a></h3>
+<p>v1에서 <strong>달라진 점</strong>: <code>if</code> 조건문으로 충돌을 감지하고, 충돌 시 두 공의 색상을 변경합니다.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">ball1</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">ball2</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">ball1</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">rate</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">ball1</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">ball1</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">ball1</span><span class="o">.</span><span class="n">velocity</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">distance</span> <span class="o">=</span> <span class="n">mag</span><span class="p">(</span><span class="n">ball1</span><span class="o">.</span><span class="n">pos</span> <span class="o">-</span> <span class="n">ball2</span><span class="o">.</span><span class="n">pos</span><span class="p">)</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="c1"># ▼▼▼ [v2에서 추가된 부분] 충돌 판정 ▼▼▼</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="n">r_sum</span> <span class="o">=</span> <span class="n">ball1</span><span class="o">.</span><span class="n">radius</span> <span class="o">+</span> <span class="n">ball2</span><span class="o">.</span><span class="n">radius</span>  <span class="c1"># &lt;- 반지름의 합 계산</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="n">r_sum</span><span class="p">:</span>                  <span class="c1"># &lt;- 여기가 충돌 조건식</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        <span class="n">ball1</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">yellow</span>        <span class="c1"># 충돌 시 색상 변경</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>        <span class="n">ball2</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">yellow</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;💥 충돌 발생!&quot;</span><span class="p">)</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    <span class="c1"># ▲▲▲ [v2에서 추가된 부분] 끝 ▲▲▲</span>
+</span></code></pre></div>
+<p><strong>예상 실행 결과:</strong></p>
+<p>3D 화면에서 빨간 공이 오른쪽으로 이동하다가, 파란 공에 닿는 순간 <strong>두 공 모두 노란색</strong>으로 변합니다! 콘솔에는:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>💥 충돌 발생!
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>💥 충돌 발생!
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>💥 충돌 발생!
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>(충돌 상태가 유지되는 동안 계속 출력)
+</span></code></pre></div>
+<p><strong>개념-코드 매핑:</strong></p>
+<ul>
+<li><strong>15번째 줄</strong> <code>r_sum = ball1.radius + ball2.radius</code> — 두 공의 반지름을 더합니다. 반지름이 각각 0.5이므로 <code>r_sum = 1.0</code>입니다.</li>
+<li><strong>16번째 줄</strong> <code>if distance &lt; r_sum:</code> — 핵심 충돌 조건입니다! 두 공의 중심 거리가 1.0보다 작아지면, 두 공의 표면이 겹치는 것이므로 "충돌"로 판정합니다.</li>
+</ul>
+<blockquote>
+<p>🤔 <strong>잠깐, "충돌 발생!"이 계속 출력되는 이유가 뭘까요?</strong> 공이 충돌해도 멈추지 않고 계속 이동하기 때문입니다. 겹쳐 있는 동안 매 프레임마다 충돌 조건이 참이 됩니다. 다음 버전에서 이 문제를 해결해봅시다!</p>
+</blockquote>
+<hr />
+<h3 id="v3">🏗️ v3: 충돌 반응 개선 — 방향 반전(튕겨나가기)<a class="headerlink" href="#v3" title="Permanent link">&para;</a></h3>
+<p>v2에서 <strong>달라진 점</strong>: 충돌 시 공이 <strong>반대 방향으로 튕겨나가게</strong> 속도를 반전시킵니다. 두 번째 공도 움직이도록 합니다.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">ball1</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">ball2</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># ▼▼▼ [v3에서 변경] 두 공 모두 서로를 향해 이동 ▼▼▼</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">ball1</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>    <span class="c1"># 오른쪽으로</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">ball2</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mf">0.03</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   <span class="c1"># 왼쪽으로</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># ▲▲▲ [v3에서 변경] 끝 ▲▲▲</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="n">rate</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="c1"># 두 공 모두 이동</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="n">ball1</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">ball1</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">ball1</span><span class="o">.</span><span class="n">velocity</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>    <span class="n">ball2</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">ball2</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">ball2</span><span class="o">.</span><span class="n">velocity</span>  <span class="c1"># &lt;- v3 추가: ball2도 이동</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    <span class="n">distance</span> <span class="o">=</span> <span class="n">mag</span><span class="p">(</span><span class="n">ball1</span><span class="o">.</span><span class="n">pos</span> <span class="o">-</span> <span class="n">ball2</span><span class="o">.</span><span class="n">pos</span><span class="p">)</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>    <span class="n">r_sum</span> <span class="o">=</span> <span class="n">ball1</span><span class="o">.</span><span class="n">radius</span> <span class="o">+</span> <span class="n">ball2</span><span class="o">.</span><span class="n">radius</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>    <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="n">r_sum</span><span class="p">:</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>        <span class="c1"># ▼▼▼ [v3에서 변경] 속도 반전으로 튕겨나가기 ▼▼▼</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>        <span class="n">ball1</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="o">-</span><span class="n">ball1</span><span class="o">.</span><span class="n">velocity</span>  <span class="c1"># &lt;- 여기가 방향 반전</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>        <span class="n">ball2</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="o">-</span><span class="n">ball2</span><span class="o">.</span><span class="n">velocity</span>  <span class="c1"># &lt;- 여기가 방향 반전</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>        <span class="n">ball1</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">yellow</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>        <span class="n">ball2</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">yellow</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>        <span class="c1"># ▲▲▲ [v3에서 변경] 끝 ▲▲▲</span>
+</span></code></pre></div>
+<p><strong>예상 실행 결과:</strong></p>
+<p>두 공이 서로를 향해 다가가다가, 만나는 순간 <strong>노란색으로 바뀌면서 반대 방향으로 튕겨나갑니다!</strong> 마치 당구공이 부딪히는 것 같은 느낌입니다.</p>
+<p><strong>개념-코드 매핑:</strong></p>
+<ul>
+<li><strong>23~24번째 줄</strong> <code>ball1.velocity = -ball1.velocity</code> — 속도 벡터에 마이너스(-)를 붙이면 <strong>방향이 정반대</strong>로 바뀝니다. <code>vector(0.05, 0, 0)</code>이 <code>vector(-0.05, 0, 0)</code>이 되는 것입니다. 이것이 <strong>방향 반전</strong>입니다.</li>
+</ul>
+<hr />
+<h3 id="_13">⚠️ 에러 경험: 이 코드를 실행하면 어떤 에러가 날까요?<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>v3 코드를 조금 수정해봅시다. 아래 코드에는 <strong>일부러 넣은 실수</strong>가 있습니다. 찾아보세요!</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">ball1</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">ball2</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">ball1</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="n">rate</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    <span class="n">ball1</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">ball1</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">ball1</span><span class="o">.</span><span class="n">velocity</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    <span class="c1"># 🐛 버그가 숨어있는 줄!</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    <span class="n">distance</span> <span class="o">=</span> <span class="n">mag</span><span class="p">(</span><span class="n">ball1</span><span class="o">.</span><span class="n">position</span> <span class="o">-</span> <span class="n">ball2</span><span class="o">.</span><span class="n">pos</span><span class="p">)</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>    <span class="n">r_sum</span> <span class="o">=</span> <span class="n">ball1</span><span class="o">.</span><span class="n">radius</span> <span class="o">+</span> <span class="n">ball2</span><span class="o">.</span><span class="n">radius</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>    <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="n">r_sum</span><span class="p">:</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>        <span class="n">ball1</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">yellow</span>
+</span></code></pre></div>
+<p><strong>에러 메시지:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>AttributeError: &#39;sphere&#39; object has no attribute &#39;position&#39;
+</span></code></pre></div>
+<p><strong>원인 분석:</strong></p>
+<p>VPython의 sphere 객체에서 위치를 나타내는 속성은 <code>position</code>이 아니라 <strong><code>pos</code></strong>입니다. <code>ball1.position</code>이라고 적었기 때문에, "sphere 객체에는 <code>position</code>이라는 속성이 없다"는 AttributeError가 발생합니다.</p>
+<table>
+<thead>
+<tr>
+<th>잘못된 코드</th>
+<th>올바른 코드</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ball1.position</code></td>
+<td><code>ball1.pos</code></td>
+<td>VPython은 <code>pos</code>가 위치 속성</td>
+</tr>
+<tr>
+<td><code>ball1.colour</code></td>
+<td><code>ball1.color</code></td>
+<td>미국식 철자 <code>color</code> 사용</td>
+</tr>
+<tr>
+<td><code>ball1.rad</code></td>
+<td><code>ball1.radius</code></td>
+<td>반지름은 <code>radius</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>수정 코드:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>    <span class="c1"># 수정: position → pos</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">distance</span> <span class="o">=</span> <span class="n">mag</span><span class="p">(</span><span class="n">ball1</span><span class="o">.</span><span class="n">pos</span> <span class="o">-</span> <span class="n">ball2</span><span class="o">.</span><span class="n">pos</span><span class="p">)</span>
+</span></code></pre></div>
+<blockquote>
+<p>💡 <strong>AttributeError를 만나면?</strong> "이 객체에 그런 이름의 속성은 없다"는 뜻입니다. 속성 이름의 <strong>오타</strong>를 의심하세요! VPython에서는 <code>pos</code>, <code>color</code>, <code>radius</code>, <code>velocity</code> 등의 정확한 이름을 사용해야 합니다.</p>
+</blockquote>
+<hr />
+<h3 id="_14">🏗️ 최종 완성: 다중 공 충돌 + 복합 반응<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>이제 <strong>리스트를 활용하여 여러 개의 공</strong>을 만들고, <strong>모든 쌍의 충돌을 검사</strong>하는 최종 코드를 완성합니다. 8차시에서 배운 리스트 활용이 빛을 발하는 순간입니다!</p>
+<p>v3에서 <strong>달라진 점</strong>: 2개가 아닌 여러 개의 공을 리스트로 관리하고, 이중 for 루프로 모든 쌍을 검사합니다. 충돌 시 색상 변경 + 방향 반전을 동시에 적용합니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="하단/푸터" >
+        
+          
+          <a href="../chapter08/" class="md-footer__link md-footer__link--prev" aria-label="이전: 8차시: 객체가 많아지면? - 리스트로 여러 3D 객체 한꺼번에 다루기">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                이전
+              </span>
+              <div class="md-ellipsis">
+                8차시: 객체가 많아지면? - 리스트로 여러 3D 객체 한꺼번에 다루기
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../chapter10/" class="md-footer__link md-footer__link--next" aria-label="다음: 10차시: 나만의 3D 시뮬레이션 완성 - 미니 프로젝트 설계·코딩·공유">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                다음
+              </span>
+              <div class="md-ellipsis">
+                10차시: 나만의 3D 시뮬레이션 완성 - 미니 프로젝트 설계·코딩·공유
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 이명희 | <a href='https://eduflow-greatsong.fly.dev/'>EduFlow</a>로 제작
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "navigation.instant", "navigation.path", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../javascripts/title-link.js"></script>
+      
+        <script src="../javascripts/mermaid-config.js"></script>
+      
+        <script src="../javascripts/scroll-progress.js"></script>
+      
+        <script src="../javascripts/eduflow-nav.js"></script>
+      
+        <script src="../javascripts/lightbox.js"></script>
+      
+        <script src="../javascripts/quiz-engine.js"></script>
+      
+    
+  </body>
+</html>

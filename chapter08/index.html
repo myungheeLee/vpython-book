@@ -1,0 +1,2080 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="파이썬 기초 문법을 이미 아는 고등학생이 Vpython을 통해 코드를 3D 시각화로 살아 움직이게 만드는 10차시 자기주도형 수업 교재입니다. 매 차시 이전 코드를 확장하는 스노우볼 구조로 설계되어, 최종적으로 개인 융합 프로젝트를 완성합니다.">
+      
+      
+        <meta name="author" content="이명희 (EduFlow)">
+      
+      
+      
+        <link rel="prev" href="../chapter07/">
+      
+      
+        <link rel="next" href="../chapter09/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>8차시: 객체가 많아지면? - 리스트로 여러 3D 객체 한꺼번에 다루기 - Vpython으로 프로그래밍 날개 달기</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans KR";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#8-3d" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href=".." title="Vpython으로 프로그래밍 날개 달기" class="md-header__button md-logo" aria-label="Vpython으로 프로그래밍 날개 달기" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vpython으로 프로그래밍 날개 달기
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              8차시: 객체가 많아지면? - 리스트로 여러 3D 객체 한꺼번에 다루기
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="다크 모드로 전환"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드로 전환" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="라이트 모드로 전환"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드로 전환" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="공유" aria-label="공유" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter01/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter04/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../chapter07/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter10/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Vpython으로 프로그래밍 날개 달기" class="md-nav__button md-logo" aria-label="Vpython으로 프로그래밍 날개 달기" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Vpython으로 프로그래밍 날개 달기
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1차시: 첫 번째 3D 세계 만들기 - 환경 설정부터 구(sphere) 띄우기까지
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2차시: 나만의 3D 장면 꾸미기 - 색상·크기·위치로 객체 디자인하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3차시: 코드에 생명 불어넣기 - while 루프로 애니메이션 만들기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4차시: 방향이 있는 숫자 - vector()로 2D·3D 움직임 제어하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5차시: 속도를 코드로 표현하다 - 등속 운동과 경계 조건 구현하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6차시: 중력을 눈으로 보다 - 가속도와 포물선 운동 시뮬레이션
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7차시: 내가 조종하는 3D 세계 - 키보드·마우스 입력으로 객체 제어하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8차시: 객체가 많아지면? - 리스트로 여러 3D 객체 한꺼번에 다루기
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8차시: 객체가 많아지면? - 리스트로 여러 3D 객체 한꺼번에 다루기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 핵심 주제 카드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 핵심 주제 카드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 리스트로 객체 관리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 사용자 정의 속성
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-in-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 for-in-리스트 업데이트
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 랜덤 색상 · 속도
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏱️ 수업 흐름
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏱️ 수업 흐름">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-10-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1단계: 문제 인식 — 변수 10개의 고통 (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-for-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2단계: 핵심 개념 — 리스트 + for 루프로 객체 생성 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-10-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3단계: 따라하기 실습 — 공 10개 동시에 움직이기 (20분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4단계: 에러 경험 &amp; 연습 문제 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5단계: 성찰 &amp; 평가 (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 1단계: 문제 인식 — 변수 10개의 고통 😫
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 1단계: 문제 인식 — 변수 10개의 고통 😫">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        변수를 하나하나 만들면 어떻게 될까요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 2단계: 핵심 개념 — 리스트 + 객체 + 사용자 정의 속성
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 2단계: 핵심 개념 — 리스트 + 객체 + 사용자 정의 속성">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 개념 1: 리스트에 3D 객체 담기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 개념 2: 사용자 정의 속성 — 객체에 나만의 데이터 붙이기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 3단계: 따라하기 실습 — 공 10개 동시에 움직이기 🏀
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 3단계: 따라하기 실습 — 공 10개 동시에 움직이기 🏀">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v1-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v1: 리스트로 공 10개 한 번에 생성하기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v2: 각 공에 랜덤 색상과 속도 부여하기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 에러 경험: 흔한 실수를 만나봅시다!
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v3-while" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v3: while 루프에서 모든 공 동시에 움직이기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v4 (최종): 벽 반사까지 추가 — 완성!
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9차시: 부딪히면 반응하라! - 충돌 감지와 에러 디버깅 실전
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10차시: 나만의 3D 시뮬레이션 완성 - 미니 프로젝트 설계·코딩·공유
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 핵심 주제 카드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 핵심 주제 카드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 리스트로 객체 관리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 사용자 정의 속성
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-in-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 for-in-리스트 업데이트
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 랜덤 색상 · 속도
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏱️ 수업 흐름
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏱️ 수업 흐름">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-10-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1단계: 문제 인식 — 변수 10개의 고통 (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-for-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2단계: 핵심 개념 — 리스트 + for 루프로 객체 생성 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-10-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3단계: 따라하기 실습 — 공 10개 동시에 움직이기 (20분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4단계: 에러 경험 &amp; 연습 문제 (10분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5단계: 성찰 &amp; 평가 (5분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 1단계: 문제 인식 — 변수 10개의 고통 😫
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 1단계: 문제 인식 — 변수 10개의 고통 😫">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        변수를 하나하나 만들면 어떻게 될까요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 2단계: 핵심 개념 — 리스트 + 객체 + 사용자 정의 속성
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 2단계: 핵심 개념 — 리스트 + 객체 + 사용자 정의 속성">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 개념 1: 리스트에 3D 객체 담기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 개념 2: 사용자 정의 속성 — 객체에 나만의 데이터 붙이기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 3단계: 따라하기 실습 — 공 10개 동시에 움직이기 🏀
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 3단계: 따라하기 실습 — 공 10개 동시에 움직이기 🏀">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v1-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v1: 리스트로 공 10개 한 번에 생성하기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v2: 각 공에 랜덤 색상과 속도 부여하기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 에러 경험: 흔한 실수를 만나봅시다!
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v3-while" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v3: while 루프에서 모든 공 동시에 움직이기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v4 (최종): 벽 반사까지 추가 — 완성!
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="네비게이션" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href=".." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../chapter07/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="8-3d">8차시: 객체가 많아지면? - 리스트로 여러 3D 객체 한꺼번에 다루기<a class="headerlink" href="#8-3d" title="Permanent link">&para;</a></h1>
+<div class="lesson-banner">
+<p><strong>⏰ 50분</strong> · 리스트+3D객체 · for 루프 생성 · 사용자 정의 속성 · <strong>난이도</strong> ●●●○○</p>
+<p><strong>학습목표</strong>: 파이썬 리스트와 for 루프를 활용하여 다수의 VPython 3D 객체를 효율적으로 생성하고, 각 객체에 개별 속성을 부여하여 동시에 업데이트할 수 있다.</p>
+<blockquote>
+<p><strong>오늘의 질문</strong>: "공 100개가 동시에 화면에서 튕겨 다니는 장면을 만들려면, 변수를 100개 만들어야 할까요? 🤔"</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="_1">🎯 핵심 주제 카드<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="cards-grid">
+<div class="card card-orange">
+<h3 id="_2">🧠 리스트로 객체 관리<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>for 루프 한 번이면 3D 객체 100개도 뚝딱! 리스트에 담아서 한꺼번에 다루는 패턴을 익힙니다.</p>
+</div>
+<div class="card card-blue">
+<h3 id="_3">💻 사용자 정의 속성<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><code>ball.velocity = vector(...)</code> — 각 객체에 나만의 데이터를 붙이는 테크닉으로 개별 움직임을 구현합니다.</p>
+</div>
+<div class="card card-green">
+<h3 id="for-in-">💬 for-in-리스트 업데이트<a class="headerlink" href="#for-in-" title="Permanent link">&para;</a></h3>
+<p><code>for ball in balls:</code> 패턴으로 while 루프 안에서 모든 객체를 동시에 움직이는 핵심 구조를 완성합니다.</p>
+</div>
+<div class="card card-purple">
+<h3 id="_4">🚀 랜덤 색상 · 속도<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>random 모듈과 결합해 각 객체를 개성 있게 만들어 시각적으로 풍성한 장면을 연출합니다.</p>
+</div>
+</div>
+<hr />
+<h2 id="_5">⏱️ 수업 흐름<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<div class="steps">
+<div class="step">
+<h4 id="1-10-5">1단계: 문제 인식 — 변수 10개의 고통 (5분)<a class="headerlink" href="#1-10-5" title="Permanent link">&para;</a></h4>
+<p>변수를 하나하나 만들어 공 10개를 생성하는 "나쁜 코드"를 직접 보고, 왜 리스트가 필요한지 체감합니다.</p>
+</div>
+<div class="step">
+<h4 id="2-for-10">2단계: 핵심 개념 — 리스트 + for 루프로 객체 생성 (10분)<a class="headerlink" href="#2-for-10" title="Permanent link">&para;</a></h4>
+<p>리스트에 VPython 객체를 담는 방법과 사용자 정의 속성(<code>.velocity</code>) 개념을 배웁니다.</p>
+</div>
+<div class="step">
+<h4 id="3-10-20">3단계: 따라하기 실습 — 공 10개 동시에 움직이기 (20분)<a class="headerlink" href="#3-10-20" title="Permanent link">&para;</a></h4>
+<p>v1(리스트 생성) → v2(속성 추가) → v3(while 루프에서 업데이트) → v4(벽 반사) 순서로 코드를 점진적으로 완성합니다.</p>
+</div>
+<div class="step">
+<h4 id="4-10">4단계: 에러 경험 &amp; 연습 문제 (10분)<a class="headerlink" href="#4-10" title="Permanent link">&para;</a></h4>
+<p>흔히 발생하는 에러를 직접 만나보고, 3단계 연습 문제로 응용력을 키웁니다.</p>
+</div>
+<div class="step">
+<h4 id="5-5">5단계: 성찰 &amp; 평가 (5분)<a class="headerlink" href="#5-5" title="Permanent link">&para;</a></h4>
+<p>오늘 배운 패턴을 정리하고, 다음 차시 충돌 감지와의 연결 고리를 확인합니다.</p>
+</div>
+</div>
+<hr />
+<h2 id="1-10">📚 1단계: 문제 인식 — 변수 10개의 고통 😫<a class="headerlink" href="#1-10" title="Permanent link">&para;</a></h2>
+<h3 id="_6">변수를 하나하나 만들면 어떻게 될까요?<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>여러분이 학교 운동장에서 축구공 10개를 동시에 굴린다고 상상해 보세요. 공마다 이름표를 붙여야 한다면 — "공1", "공2", "공3" … "공10" — 이름 붙이는 것만으로도 지칩니다. 그런데 공이 100개라면요? 😱</p>
+<p>프로그래밍에서도 똑같습니다. 아래 코드를 한번 보세요.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># 공 10개를 각각 변수에 담는 &quot;나쁜 코드&quot; 😰</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">ball0</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">ball1</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">ball2</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">green</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">ball3</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">yellow</span><span class="p">)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">ball4</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">orange</span><span class="p">)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">ball5</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">cyan</span><span class="p">)</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">ball6</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">magenta</span><span class="p">)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">ball7</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">white</span><span class="p">)</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">ball8</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">ball9</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="c1"># 이제 각 공을 움직이려면...</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">ball0</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mf">0.01</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="n">ball1</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mf">0.01</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">ball2</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mf">0.01</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="c1"># ... 이것을 10번 반복? 100개면 100번?! 😵</span>
+</span></code></pre></div>
+<blockquote>
+<p>💡 <strong>실행 결과</strong>: 공 10개가 일렬로 나타나지만, 움직이는 코드를 작성하려면 같은 줄을 10번씩 복사해야 합니다.</p>
+</blockquote>
+<p>이 방식의 문제를 정리하면:</p>
+<table>
+<thead>
+<tr>
+<th>문제점</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>코드 중복</strong></td>
+<td>거의 같은 줄을 계속 복사-붙여넣기</td>
+</tr>
+<tr>
+<td><strong>수정 어려움</strong></td>
+<td>색상을 바꾸려면 10줄을 다 고쳐야 함</td>
+</tr>
+<tr>
+<td><strong>확장 불가</strong></td>
+<td>100개로 늘리려면 90줄을 추가해야 함</td>
+</tr>
+<tr>
+<td><strong>실수 위험</strong></td>
+<td><code>ball7</code>을 <code>ball8</code>로 오타 내면 찾기 어려움</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🎯 <strong>핵심 깨달음</strong>: "같은 종류의 것이 여러 개"일 때는 <strong>리스트</strong>에 담고 <strong>반복문</strong>으로 다루는 것이 정답입니다!</p>
+</blockquote>
+<hr />
+<h2 id="2">📚 2단계: 핵심 개념 — 리스트 + 객체 + 사용자 정의 속성<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="1-3d">🧠 개념 1: 리스트에 3D 객체 담기<a class="headerlink" href="#1-3d" title="Permanent link">&para;</a></h3>
+<p>여러분은 이미 파이썬에서 리스트를 배웠습니다:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</span></code></pre></div>
+<p>리스트에는 숫자뿐 아니라 <strong>뭐든지</strong> 담을 수 있습니다. VPython의 <code>sphere</code> 객체도 마찬가지입니다!</p>
+<p>마치 축구팀 감독이 선수 명단(리스트)을 가지고 있으면, "전원 앞으로 이동!" 한마디로 모든 선수를 움직일 수 있는 것과 같습니다. 변수를 하나하나 부르는 대신, <strong>리스트 이름 하나</strong>로 전체를 제어하는 것이죠.</p>
+<p><strong>리스트로 객체를 관리하는 핵심 구조:</strong></p>
+<div class="mermaid">flowchart TD
+    A["빈 리스트 생성&lt;br/&gt;balls = []"] --&gt; B["for 루프로 객체 생성"]
+    B --&gt; C["sphere() 만들기"]
+    C --&gt; D["리스트에 추가&lt;br/&gt;balls.append(ball)"]
+    D --&gt; E{반복 완료?}
+    E -- 아니오 --&gt; B
+    E -- 예 --&gt; F["리스트 완성!&lt;br/&gt;balls에 객체 N개"]
+    F --&gt; G["for ball in balls:&lt;br/&gt;로 전체 제어"]</div>
+<p><em>리스트 기반 객체 관리 흐름도</em></p>
+<h3 id="2_1">🧠 개념 2: 사용자 정의 속성 — 객체에 나만의 데이터 붙이기<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<p>VPython의 <code>sphere</code> 객체에는 기본적으로 <code>pos</code>, <code>radius</code>, <code>color</code> 같은 속성이 있습니다. 그런데 놀라운 점은 — <strong>원하는 속성을 마음대로 추가</strong>할 수 있다는 것입니다!</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">ball</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 내가 만든 속성!</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">ball</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="mf">5.0</span>                   <span class="c1"># 이것도 내가 만든 속성!</span>
+</span></code></pre></div>
+<p>이것은 마치 학생증에 기본 정보(이름, 학번)가 있는데, 뒷면에 메모를 적어 붙이는 것과 같습니다. "이 학생은 달리기가 빠르다"라고 메모를 붙이면 나중에 참고할 수 있는 것처럼, 객체에 <code>.velocity</code>를 붙이면 나중에 <code>ball.velocity</code>로 꺼내 쓸 수 있습니다.</p>
+<blockquote>
+<p>⚠️ <strong>주의</strong>: <code>.velocity</code>는 VPython이 원래 알고 있는 속성이 아닙니다! 파이썬이 동적으로 속성을 추가할 수 있기 때문에 가능한 것입니다. 이름은 자유롭게 정할 수 있어요 (<code>.vel</code>, <code>.speed</code>, <code>.my_data</code> 등).</p>
+</blockquote>
+<p><strong>기본 속성 vs 사용자 정의 속성 비교:</strong></p>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>기본 속성</th>
+<th>사용자 정의 속성</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>예시</strong></td>
+<td><code>ball.pos</code>, <code>ball.radius</code>, <code>ball.color</code></td>
+<td><code>ball.velocity</code>, <code>ball.mass</code>, <code>ball.score</code></td>
+</tr>
+<tr>
+<td><strong>누가 만듦?</strong></td>
+<td>VPython이 자동 생성</td>
+<td>프로그래머가 직접 추가</td>
+</tr>
+<tr>
+<td><strong>화면 반영</strong></td>
+<td>pos 변경 시 객체가 이동</td>
+<td>화면에 직접 영향 없음 (코드로 연결해야 함)</td>
+</tr>
+<tr>
+<td><strong>용도</strong></td>
+<td>객체의 시각적 상태</td>
+<td>객체의 물리적/논리적 데이터 저장</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-10">📚 3단계: 따라하기 실습 — 공 10개 동시에 움직이기 🏀<a class="headerlink" href="#3-10" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>실행 환경</strong>: VPython 3.2 (GlowScript 또는 로컬 설치)</p>
+</blockquote>
+<h3 id="v1-10">✅ v1: 리스트로 공 10개 한 번에 생성하기<a class="headerlink" href="#v1-10" title="Permanent link">&para;</a></h3>
+<p>먼저 가장 기본적인 것부터 — for 루프로 공 10개를 만들어 봅시다!</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># 빈 리스트 준비 — 여기에 공들을 담을 것입니다</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">balls</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># &lt;- 여기가 [리스트 초기화]</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># for 루프로 공 10개 생성</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>  <span class="c1"># &lt;- 여기가 [반복 생성 패턴]</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>  <span class="c1"># i를 활용해 위치를 다르게!</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="p">)</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">balls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ball</span><span class="p">)</span>  <span class="c1"># &lt;- 여기가 [리스트에 객체 추가]</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="c1"># 확인: 리스트에 몇 개가 담겼는지 출력</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;공의 개수:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">balls</span><span class="p">))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>예상 출력:
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>공의 개수: 10
+</span></code></pre></div>
+<blockquote>
+<p>🖥️ <strong>화면 결과</strong>: 빨간 공 10개가 x = -4부터 x = 5까지 일렬로 나타납니다.</p>
+</blockquote>
+<p><strong>개념-코드 매핑:</strong></p>
+<ul>
+<li>1번째 줄의 <code>balls = []</code>가 바로 <strong>빈 리스트 초기화</strong>입니다. 공을 담을 빈 바구니를 준비한 것이죠.</li>
+<li>4번째 줄의 <code>for i in range(10):</code>이 바로 <strong>반복 생성 패턴</strong>입니다. i가 0, 1, 2, ..., 9로 변하면서 10번 반복합니다.</li>
+<li>5번째 줄의 <code>pos=vector(-4 + i, 0, 0)</code>에서 <strong>i를 좌표에 활용</strong>하여 공마다 서로 다른 위치를 만듭니다.</li>
+<li>9번째 줄의 <code>balls.append(ball)</code>이 바로 <strong>리스트에 객체 추가</strong>입니다. 공을 만들 때마다 바구니에 넣는 동작이에요.</li>
+</ul>
+<hr />
+<h3 id="v2">✅ v2: 각 공에 랜덤 색상과 속도 부여하기<a class="headerlink" href="#v2" title="Permanent link">&para;</a></h3>
+<p>v1에서는 공이 전부 빨간색이고 움직이지도 않았습니다. 이제 <strong>사용자 정의 속성</strong>과 <strong>random 모듈</strong>을 추가합니다!</p>
+<p><strong>v1에서 바뀐 점:</strong> <code>import random</code> 추가, 색상을 랜덤으로, <code>.velocity</code> 사용자 정의 속성 추가</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>  <span class="c1"># &lt;- 새로 추가! 랜덤 값 생성을 위해</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">balls</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>        <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>        <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="c1"># 랜덤 색상: RGB 각각 0~1 사이 랜덤 값</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>        <span class="n">color</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>  <span class="c1"># &lt;- 변경!</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    <span class="p">)</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    <span class="c1"># 사용자 정의 속성으로 속도 부여 — 각 공이 자기만의 속도를 가짐</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>    <span class="n">ball</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>        <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>  <span class="c1"># x 방향: -3 ~ 3 사이 랜덤</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>        <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>  <span class="c1"># y 방향: -3 ~ 3 사이 랜덤</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>        <span class="mi">0</span>                       <span class="c1"># z 방향: 0 (2D 평면에서 움직이게)</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>    <span class="p">)</span>  <span class="c1"># &lt;- 여기가 [사용자 정의 속성]</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>    <span class="n">balls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ball</span><span class="p">)</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="c1"># 첫 번째 공의 속도를 확인해 봅시다</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;첫 번째 공의 속도:&quot;</span><span class="p">,</span> <span class="n">balls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">velocity</span><span class="p">)</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;세 번째 공의 속도:&quot;</span><span class="p">,</span> <span class="n">balls</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">velocity</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>예상 출력 (랜덤이라 매번 다름):
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>첫 번째 공의 속도: &lt;1.234, -2.567, 0&gt;
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>세 번째 공의 속도: &lt;-0.891, 1.432, 0&gt;
+</span></code></pre></div>
+<blockquote>
+<p>🖥️ <strong>화면 결과</strong>: 알록달록한 공 10개가 일렬로 나타납니다. 아직 움직이진 않습니다.</p>
+</blockquote>
+<p><strong>개념-코드 매핑:</strong></p>
+<ul>
+<li>10번째 줄 <code>color=vector(random.random(), ...)</code> — VPython에서 색상은 <code>vector(R, G, B)</code>로 표현합니다. 각 값이 0~1 사이이므로 <code>random.random()</code>이 딱 맞습니다.</li>
+<li>14~18번째 줄 <code>ball.velocity = vector(...)</code> — 이것이 바로 <strong>사용자 정의 속성</strong>입니다! VPython의 sphere에는 원래 <code>.velocity</code>가 없지만, 파이썬이 동적으로 추가해 줍니다.</li>
+</ul>
+<hr />
+<h3 id="_7">🚨 에러 경험: 흔한 실수를 만나봅시다!<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>아래 코드를 실행하면 어떤 에러가 날까요? 🤔</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">balls</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>        <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>        <span class="n">color</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="p">)</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    <span class="n">ball</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    <span class="n">balls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ball</span><span class="p">)</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="c1"># 실수! 리스트 전체에 .velocity를 호출하려고 함</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="nb">print</span><span class="p">(</span><span class="n">balls</span><span class="o">.</span><span class="n">velocity</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>에러 메시지:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>AttributeError: &#39;list&#39; object has no attribute &#39;velocity&#39;
+</span></code></pre></div>
+<p><strong>원인 분석:</strong></p>
+<p><code>balls</code>는 <strong>리스트</strong>입니다. 리스트 자체에는 <code>.velocity</code>라는 속성이 없어요! <code>.velocity</code>는 리스트 <strong>안에 들어있는 각각의 sphere 객체</strong>에 붙어 있습니다.</p>
+<p>비유하자면: 축구팀 선수 명단(리스트)에게 "네 등번호 뭐야?"라고 물어본 것과 같습니다. 명단 자체는 등번호가 없고, <strong>명단 안의 각 선수</strong>에게 물어봐야 합니다!</p>
+<p><strong>수정 코드:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># 잘못된 코드:</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="c1"># print(balls.velocity)  # ❌ 리스트 자체에는 velocity가 없다!</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># 올바른 코드 — 리스트 안의 각 객체에 접근</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">balls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">velocity</span><span class="p">)</span>  <span class="c1"># ✅ 첫 번째 공의 속도</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># 또는 for 루프로 전체 순회</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="k">for</span> <span class="n">ball</span> <span class="ow">in</span> <span class="n">balls</span><span class="p">:</span>  <span class="c1"># ✅ 각 공에 하나씩 접근</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">ball</span><span class="o">.</span><span class="n">velocity</span><span class="p">)</span>
+</span></code></pre></div>
+<blockquote>
+<p>💡 <strong>핵심 정리</strong>: <code>balls</code>(리스트) ≠ <code>ball</code>(개별 객체). 리스트는 <strong>컨테이너</strong>이고, 속성은 <strong>안에 든 객체</strong>에 있습니다!</p>
+</blockquote>
+<hr />
+<h3 id="v3-while">✅ v3: while 루프에서 모든 공 동시에 움직이기<a class="headerlink" href="#v3-while" title="Permanent link">&para;</a></h3>
+<p>이제 진짜 핵심입니다! <strong>while 루프 + for 루프</strong> 조합으로 모든 공을 동시에 업데이트합니다.</p>
+<p><strong>v2에서 바뀐 점:</strong> <code>while True:</code> 루프 안에 <code>for ball in balls:</code> 패턴 추가</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">balls</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    <span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>        <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>        <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>        <span class="n">color</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    <span class="p">)</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>    <span class="n">ball</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>        <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>        <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>        <span class="mi">0</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>    <span class="p">)</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>    <span class="n">balls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ball</span><span class="p">)</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span>  <span class="c1"># 시간 간격</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="c1"># 애니메이션 루프</span>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>    <span class="n">rate</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># 초당 100프레임</span>
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>    <span class="c1"># 핵심 패턴: for ball in balls — 모든 공을 순회하며 업데이트</span>
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>    <span class="k">for</span> <span class="n">ball</span> <span class="ow">in</span> <span class="n">balls</span><span class="p">:</span>  <span class="c1"># &lt;- 여기가 [리스트 순회 업데이트 패턴]</span>
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>        <span class="n">ball</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">ball</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">ball</span><span class="o">.</span><span class="n">velocity</span> <span class="o">*</span> <span class="n">dt</span>  <span class="c1"># &lt;- 여기가 [위치 업데이트]</span>
+</span></code></pre></div>
+<blockquote>
+<p>🖥️ <strong>화면 결과</strong>: 10개의 알록달록한 공이 각자의 속도로 사방으로 흩어지며 움직입니다! 🎉</p>
+</blockquote>
+<p><strong>개념-코드 매핑:</strong></p>
+<ul>
+<li>25번째 줄 <code>for ball in balls:</code> — 이것이 바로 오늘의 <strong>핵심 패턴</strong>입니다. 리스트 <code>balls</code>에서 공을 하나씩 꺼내 <code>ball</code>이라는 변수에 넣고 아래 코드를 실행합니다.</li>
+<li>26번째 줄 <code>ball.pos = ball.pos + ball.velocity * dt</code> — 각 공의 현재 위치에 속도 × 시간을 더해 새 위치를 계산합니다. <strong>모든 공에 대해</strong> 이 계산이 반복됩니다!</li>
+</ul>
+<p>아래 다이어그램으로 while-for 이중 루프 구조를 확인해 봅시다:</p>
+<div class="mermaid">flowchart TD
+    A["while True: 시작"] --&gt; B["rate(100)"]
+    B --&gt; C["for ball in balls:"]
+    C --&gt; D["ball.pos 업데이트"]
+    D --&gt; E{"balls의&lt;br/&gt;다음 공이&lt;br/&gt;있는가?"}
+    E -- 예 --&gt; C
+    E -- 아니오 --&gt; A</div>
+<p><em>while-for 이중 루프 구조: while이 매 프레임을 만들고, for가 매 프레임마다 모든 공을 처리합니다</em></p>
+<p>하지만 아직 문제가 있습니다 — <strong>공이 화면 밖으로 날아가 버립니다!</strong> 😅</p>
+<hr />
+<h3 id="v4">✅ v4 (최종): 벽 반사까지 추가 — 완성!<a class="headerlink" href="#v4" title="Permanent link">&para;</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="하단/푸터" >
+        
+          
+          <a href="../chapter07/" class="md-footer__link md-footer__link--prev" aria-label="이전: 7차시: 내가 조종하는 3D 세계 - 키보드·마우스 입력으로 객체 제어하기">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                이전
+              </span>
+              <div class="md-ellipsis">
+                7차시: 내가 조종하는 3D 세계 - 키보드·마우스 입력으로 객체 제어하기
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../chapter09/" class="md-footer__link md-footer__link--next" aria-label="다음: 9차시: 부딪히면 반응하라! - 충돌 감지와 에러 디버깅 실전">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                다음
+              </span>
+              <div class="md-ellipsis">
+                9차시: 부딪히면 반응하라! - 충돌 감지와 에러 디버깅 실전
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 이명희 | <a href='https://eduflow-greatsong.fly.dev/'>EduFlow</a>로 제작
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "navigation.instant", "navigation.path", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../javascripts/title-link.js"></script>
+      
+        <script src="../javascripts/mermaid-config.js"></script>
+      
+        <script src="../javascripts/scroll-progress.js"></script>
+      
+        <script src="../javascripts/eduflow-nav.js"></script>
+      
+        <script src="../javascripts/lightbox.js"></script>
+      
+        <script src="../javascripts/quiz-engine.js"></script>
+      
+    
+  </body>
+</html>

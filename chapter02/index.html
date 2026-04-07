@@ -1,0 +1,2454 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="파이썬 기초 문법을 이미 아는 고등학생이 Vpython을 통해 코드를 3D 시각화로 살아 움직이게 만드는 10차시 자기주도형 수업 교재입니다. 매 차시 이전 코드를 확장하는 스노우볼 구조로 설계되어, 최종적으로 개인 융합 프로젝트를 완성합니다.">
+      
+      
+        <meta name="author" content="이명희 (EduFlow)">
+      
+      
+      
+        <link rel="prev" href="../chapter01/">
+      
+      
+        <link rel="next" href="../chapter03/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>2차시: 나만의 3D 장면 꾸미기 - 색상·크기·위치로 객체 디자인하기 - Vpython으로 프로그래밍 날개 달기</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans KR";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-3d-" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href=".." title="Vpython으로 프로그래밍 날개 달기" class="md-header__button md-logo" aria-label="Vpython으로 프로그래밍 날개 달기" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vpython으로 프로그래밍 날개 달기
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2차시: 나만의 3D 장면 꾸미기 - 색상·크기·위치로 객체 디자인하기
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="다크 모드로 전환"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="다크 모드로 전환" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="라이트 모드로 전환"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="라이트 모드로 전환" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="공유" aria-label="공유" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../chapter01/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter04/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter07/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../chapter10/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Vpython으로 프로그래밍 날개 달기" class="md-nav__button md-logo" aria-label="Vpython으로 프로그래밍 날개 달기" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Vpython으로 프로그래밍 날개 달기
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1차시: 첫 번째 3D 세계 만들기 - 환경 설정부터 구(sphere) 띄우기까지
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2차시: 나만의 3D 장면 꾸미기 - 색상·크기·위치로 객체 디자인하기
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2차시: 나만의 3D 장면 꾸미기 - 색상·크기·위치로 객체 디자인하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 핵심 주제 카드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 핵심 주제 카드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 객체 속성 마스터하기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 다양한 3D 객체 탐험
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎨 나만의 3D 장면 만들기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 에러와 친해지기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏱️ 수업 흐름
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏱️ 수업 흐름">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 1단계: 지난 시간 복습 &amp; 속성 확장 (8분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3d-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 2단계: 새로운 3D 객체 탐험 (12분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 3단계: 에러 경험 &amp; 디버깅 (8분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-3d-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎨 4단계: 나만의 3D 장면 만들기 (15분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 5단계: 정리 &amp; 평가 (7분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 핵심 개념 1: 객체 속성(Attribute) 마스터하기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 핵심 개념 1: 객체 속성(Attribute) 마스터하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🍕 비유로 시작해 볼까요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📐 정의: 객체 속성이란?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vpython" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎨 VPython 색상 시스템
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 따라하기 실습: 속성 바꾸기 (점진적 빌드업)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 따라하기 실습: 속성 바꾸기 (점진적 빌드업)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v1-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v1: 가장 기본적인 구 하나 (3줄)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v2: 색상과 반지름 추가 (+2줄 변경)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v3: 위치 이동 + 두 번째 객체 추가
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v4 (최종): 투명도까지 추가한 완성 장면
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 핵심 개념 2: 다양한 3D 객체 탐험
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 핵심 개념 2: 다양한 3D 객체 탐험">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vpython_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧊 VPython 객체 종류 한눈에 보기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 새로운 객체 하나씩 실험하기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 새로운 객체 하나씩 실험하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cylinder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1️⃣ cylinder (원기둥)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2️⃣ cone (원뿔)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-arrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3️⃣ arrow (화살표)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-ring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4️⃣ ring (고리)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 axis 속성 방향 비교
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 에러 경험 설계: 실수에서 배우기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 에러 경험 설계: 실수에서 배우기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ 에러 1: 속성 이름 오타
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ 에러 2: color에 잘못된 값 넣기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3차시: 코드에 생명 불어넣기 - while 루프로 애니메이션 만들기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 - Part 2 - 물리 세계를 코드로: 벡터·속도·가속도
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4차시: 방향이 있는 숫자 - vector()로 2D·3D 움직임 제어하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5차시: 속도를 코드로 표현하다 - 등속 운동과 경계 조건 구현하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6차시: 중력을 눈으로 보다 - 가속도와 포물선 운동 시뮬레이션
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 - Part 3 - 인터랙션과 복잡한 세계: 입력·리스트·충돌
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7차시: 내가 조종하는 3D 세계 - 키보드·마우스 입력으로 객체 제어하기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8차시: 객체가 많아지면? - 리스트로 여러 3D 객체 한꺼번에 다루기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9차시: 부딪히면 반응하라! - 충돌 감지와 에러 디버깅 실전
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 4 - Part 4 - 모든 것을 하나로: 종합 미니 프로젝트
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10차시: 나만의 3D 시뮬레이션 완성 - 미니 프로젝트 설계·코딩·공유
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 핵심 주제 카드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 핵심 주제 카드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 객체 속성 마스터하기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 다양한 3D 객체 탐험
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎨 나만의 3D 장면 만들기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 에러와 친해지기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏱️ 수업 흐름
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏱️ 수업 흐름">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 1단계: 지난 시간 복습 &amp; 속성 확장 (8분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3d-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 2단계: 새로운 3D 객체 탐험 (12분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 3단계: 에러 경험 &amp; 디버깅 (8분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-3d-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎨 4단계: 나만의 3D 장면 만들기 (15분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 5단계: 정리 &amp; 평가 (7분)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 핵심 개념 1: 객체 속성(Attribute) 마스터하기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 핵심 개념 1: 객체 속성(Attribute) 마스터하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🍕 비유로 시작해 볼까요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📐 정의: 객체 속성이란?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vpython" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎨 VPython 색상 시스템
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 따라하기 실습: 속성 바꾸기 (점진적 빌드업)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 따라하기 실습: 속성 바꾸기 (점진적 빌드업)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v1-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v1: 가장 기본적인 구 하나 (3줄)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v2: 색상과 반지름 추가 (+2줄 변경)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v3: 위치 이동 + 두 번째 객체 추가
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ v4 (최종): 투명도까지 추가한 완성 장면
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 핵심 개념 2: 다양한 3D 객체 탐험
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 핵심 개념 2: 다양한 3D 객체 탐험">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vpython_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧊 VPython 객체 종류 한눈에 보기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 새로운 객체 하나씩 실험하기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 새로운 객체 하나씩 실험하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cylinder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1️⃣ cylinder (원기둥)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2️⃣ cone (원뿔)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-arrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3️⃣ arrow (화살표)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-ring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4️⃣ ring (고리)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 axis 속성 방향 비교
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 에러 경험 설계: 실수에서 배우기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 에러 경험 설계: 실수에서 배우기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ 에러 1: 속성 이름 오타
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ 에러 2: color에 잘못된 값 넣기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="네비게이션" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href=".." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../chapter01/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Part 1 - Part 1 - 3D 세계의 문을 열다: Vpython 기초
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="2-3d-">2차시: 나만의 3D 장면 꾸미기 - 색상·크기·위치로 객체 디자인하기<a class="headerlink" href="#2-3d-" title="Permanent link">&para;</a></h1>
+<div class="lesson-banner">
+<p><strong>⏰ 50분</strong> · 객체 속성 · 다양한 3D 객체 · 장면 조합 · <strong>난이도</strong> ●●○○○</p>
+<p><strong>학습목표</strong>: color, size, pos 등 속성을 조절하여 다양한 3D 객체를 생성하고, 여러 객체를 조합하여 의미 있는 3D 장면을 구성할 수 있다.</p>
+<blockquote>
+<p><strong>오늘의 질문</strong>: "레고 블록처럼 3D 도형들을 자유롭게 배치하면, 어떤 장면을 만들 수 있을까요?"</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="_1">🎯 핵심 주제 카드<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="cards-grid">
+<div class="card card-orange">
+<h3 id="_2">🧠 객체 속성 마스터하기<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>color, size, pos, radius 등 속성을 바꿔서 같은 도형도 완전히 다르게 표현합니다</p>
+</div>
+<div class="card card-blue">
+<h3 id="3d">🔧 다양한 3D 객체 탐험<a class="headerlink" href="#3d" title="Permanent link">&para;</a></h3>
+<p>cylinder, cone, arrow, ring 등 새로운 도형을 만들어 보고 각각의 고유 속성을 실험합니다</p>
+</div>
+<div class="card card-green">
+<h3 id="3d_1">🎨 나만의 3D 장면 만들기<a class="headerlink" href="#3d_1" title="Permanent link">&para;</a></h3>
+<p>여러 객체를 조합하여 눈사람, 나무, 로봇 등 창의적인 장면을 직접 디자인합니다</p>
+</div>
+<div class="card card-red">
+<h3 id="_3">📝 에러와 친해지기<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>속성 이름을 잘못 쓰거나 좌표를 헷갈렸을 때 나오는 에러를 직접 경험하고 해결합니다</p>
+</div>
+</div>
+<hr />
+<h2 id="_4">⏱️ 수업 흐름<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<div class="steps">
+<div class="step">
+<h4 id="1-8">🔄 1단계: 지난 시간 복습 &amp; 속성 확장 (8분)<a class="headerlink" href="#1-8" title="Permanent link">&para;</a></h4>
+<p>1차시에서 배운 sphere, box를 떠올리며, 색상(color)과 위치(pos)를 바꿔보는 간단한 실습으로 시작합니다.</p>
+</div>
+<div class="step">
+<h4 id="2-3d-12">🧱 2단계: 새로운 3D 객체 탐험 (12분)<a class="headerlink" href="#2-3d-12" title="Permanent link">&para;</a></h4>
+<p>cylinder, cone, arrow, ring 등 새로운 객체를 하나씩 생성해 보면서 각 객체만의 고유 속성(axis, length 등)을 알아봅니다.</p>
+</div>
+<div class="step">
+<h4 id="3-8">🚨 3단계: 에러 경험 &amp; 디버깅 (8분)<a class="headerlink" href="#3-8" title="Permanent link">&para;</a></h4>
+<p>의도적으로 틀린 코드를 실행하여 자주 발생하는 에러를 직접 만나보고, 스스로 고치는 방법을 익힙니다.</p>
+</div>
+<div class="step">
+<h4 id="4-3d-15">🎨 4단계: 나만의 3D 장면 만들기 (15분)<a class="headerlink" href="#4-3d-15" title="Permanent link">&para;</a></h4>
+<p>배운 객체들을 조합하여 눈사람, 간단한 캐릭터, 미니 태양계 등 자유로운 3D 장면을 설계하고 구현합니다.</p>
+</div>
+<div class="step">
+<h4 id="5-7">✅ 5단계: 정리 &amp; 평가 (7분)<a class="headerlink" href="#5-7" title="Permanent link">&para;</a></h4>
+<p>핵심 개념을 되짚어보고, 형성 평가 문제를 풀며 오늘 배운 내용을 점검합니다.</p>
+</div>
+</div>
+<hr />
+<h2 id="1-attribute">📚 핵심 개념 1: 객체 속성(Attribute) 마스터하기<a class="headerlink" href="#1-attribute" title="Permanent link">&para;</a></h2>
+<h3 id="_5">🍕 비유로 시작해 볼까요?<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>피자를 주문할 때를 떠올려 보세요. "라지 사이즈, 페퍼로니 토핑, 치즈크러스트"처럼 <strong>옵션</strong>을 지정하죠? Vpython에서 3D 객체를 만들 때도 똑같습니다. <code>sphere()</code>라는 기본 주문서에 <strong>색상은 빨간색, 반지름은 0.5, 위치는 왼쪽</strong>이라고 옵션을 붙이는 거예요!</p>
+<p>파이썬에서 함수에 <code>키워드 인자</code>를 넘기던 것 기억나시나요?</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 파이썬 함수의 키워드 인자 (복습)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_pizza</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="n">topping</span><span class="o">=</span><span class="s2">&quot;cheese&quot;</span><span class="p">):</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2"> 피자, </span><span class="si">{</span><span class="n">topping</span><span class="si">}</span><span class="s2"> 토핑!&quot;</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">make_pizza</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="s2">&quot;large&quot;</span><span class="p">,</span> <span class="n">topping</span><span class="o">=</span><span class="s2">&quot;pepperoni&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>VPython 객체 생성도 <strong>정확히 같은 원리</strong>입니다:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1">#      ^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^^^^^^^</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1">#      위치 = 키워드 인자    반지름       색상</span>
+</span></code></pre></div>
+<blockquote>
+<p>💡 <strong>핵심 연결</strong>: VPython의 <code>sphere(radius=0.5, color=color.red)</code>는 파이썬 함수의 <strong>키워드 인자(keyword argument)</strong> 와 완전히 같은 문법입니다. <code>=</code> 왼쪽이 속성 이름, 오른쪽이 값이에요!</p>
+</blockquote>
+<h3 id="_6">📐 정의: 객체 속성이란?<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p><strong>객체 속성(Attribute)</strong>이란, 3D 객체의 외형과 상태를 결정하는 설정값입니다. 모든 VPython 객체는 공통 속성과 고유 속성을 가집니다.</p>
+<p><strong>VPython 주요 공통 속성 정리표:</strong></p>
+<table>
+<thead>
+<tr>
+<th>속성</th>
+<th>설명</th>
+<th>예시</th>
+<th>기본값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pos</code></td>
+<td>객체의 중심 위치 (3D 좌표)</td>
+<td><code>pos=vector(1, 2, 0)</code></td>
+<td><code>vector(0,0,0)</code></td>
+</tr>
+<tr>
+<td><code>color</code></td>
+<td>객체의 색상</td>
+<td><code>color=color.red</code></td>
+<td><code>color.white</code></td>
+</tr>
+<tr>
+<td><code>opacity</code></td>
+<td>투명도 (0~1)</td>
+<td><code>opacity=0.5</code></td>
+<td><code>1</code> (불투명)</td>
+</tr>
+<tr>
+<td><code>visible</code></td>
+<td>보이기/숨기기</td>
+<td><code>visible=False</code></td>
+<td><code>True</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>sphere(구)의 고유 속성:</strong></p>
+<table>
+<thead>
+<tr>
+<th>속성</th>
+<th>설명</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>radius</code></td>
+<td>구의 반지름</td>
+<td><code>radius=0.5</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>box(상자)의 고유 속성:</strong></p>
+<table>
+<thead>
+<tr>
+<th>속성</th>
+<th>설명</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>size</code></td>
+<td>가로×세로×깊이</td>
+<td><code>size=vector(2, 1, 0.5)</code></td>
+</tr>
+</tbody>
+</table>
+<p>VPython 객체 속성의 구조를 다이어그램으로 살펴보겠습니다:</p>
+<div class="mermaid">flowchart TD
+    A["VPython 객체"] --&gt; B["공통 속성"]
+    A --&gt; C["고유 속성"]
+    B --&gt; D["pos&lt;br/&gt;위치"]
+    B --&gt; E["color&lt;br/&gt;색상"]
+    B --&gt; F["opacity&lt;br/&gt;투명도"]
+    C --&gt; G["sphere: radius"]
+    C --&gt; H["box: size"]
+    C --&gt; I["cylinder: axis, radius"]
+    C --&gt; J["cone: axis, radius"]</div>
+<h3 id="vpython">🎨 VPython 색상 시스템<a class="headerlink" href="#vpython" title="Permanent link">&para;</a></h3>
+<p>VPython은 미리 정의된 색상 상수를 제공합니다. 마치 물감 팔레트처럼요!</p>
+<table>
+<thead>
+<tr>
+<th>색상 코드</th>
+<th>색상</th>
+<th>색상 코드</th>
+<th>색상</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>color.red</code></td>
+<td>빨간색 🔴</td>
+<td><code>color.green</code></td>
+<td>초록색 🟢</td>
+</tr>
+<tr>
+<td><code>color.blue</code></td>
+<td>파란색 🔵</td>
+<td><code>color.yellow</code></td>
+<td>노란색 🟡</td>
+</tr>
+<tr>
+<td><code>color.orange</code></td>
+<td>주황색 🟠</td>
+<td><code>color.purple</code></td>
+<td>보라색 🟣</td>
+</tr>
+<tr>
+<td><code>color.white</code></td>
+<td>흰색 ⚪</td>
+<td><code>color.cyan</code></td>
+<td>청록색</td>
+</tr>
+<tr>
+<td><code>color.magenta</code></td>
+<td>자홍색</td>
+<td><code>color.black</code></td>
+<td>검정색 ⚫</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🎨 <strong>커스텀 색상도 가능합니다!</strong> <code>color=vector(R, G, B)</code> 형식으로, 각 값은 0~1 사이입니다. 예를 들어 <code>vector(1, 0.5, 0)</code>은 주황색이에요. RGB 값이 0~255가 아니라 <strong>0~1</strong> 범위인 점이 일반적인 RGB와 다릅니다.</p>
+</blockquote>
+<hr />
+<h2 id="_7">🔧 따라하기 실습: 속성 바꾸기 (점진적 빌드업)<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>실행 환경</strong>: VPython 3.2 (GlowScript 또는 로컬 vpython 패키지)</p>
+</blockquote>
+<h3 id="v1-3">✅ v1: 가장 기본적인 구 하나 (3줄)<a class="headerlink" href="#v1-3" title="Permanent link">&para;</a></h3>
+<p>먼저 1차시에서 했던 것처럼, 아무 속성 없이 구 하나를 만들어 봅시다.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># 아무 속성도 지정하지 않은 기본 구</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">sphere</span><span class="p">()</span>
+</span></code></pre></div>
+<blockquote>
+<p><strong>실행 결과</strong>: 화면 중앙에 흰색(white) 구가 하나 나타납니다. 반지름은 기본값 1입니다.</p>
+</blockquote>
+<p>위 코드의 2번째 줄 <code>sphere()</code>가 바로 <strong>기본값(default)</strong>으로 객체를 생성하는 것입니다. 아무 키워드 인자도 넘기지 않았으니, VPython이 알아서 pos=(0,0,0), color=white, radius=1을 넣어준 거예요.</p>
+<h3 id="v2-2">✅ v2: 색상과 반지름 추가 (+2줄 변경)<a class="headerlink" href="#v2-2" title="Permanent link">&para;</a></h3>
+<p>이제 색상과 크기를 바꿔볼게요. <strong>바뀐 부분</strong>에 주목하세요!</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># v2: 색상과 반지름을 지정</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">sphere</span><span class="p">(</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>          <span class="c1"># &lt;- 기본값 1에서 0.5로 줄임</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span>      <span class="c1"># &lt;- 기본 흰색에서 빨간색으로 변경</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">)</span>
+</span></code></pre></div>
+<blockquote>
+<p><strong>실행 결과</strong>: 화면 중앙에 <strong>빨간색의 작은 구</strong>가 나타납니다. v1보다 반지름이 절반이라 확실히 작아 보입니다.</p>
+</blockquote>
+<p>위 코드의 4번째 줄 <code>radius=0.5</code>가 바로 <strong>고유 속성을 키워드 인자로 지정</strong>하는 것입니다.</p>
+<h3 id="v3">✅ v3: 위치 이동 + 두 번째 객체 추가<a class="headerlink" href="#v3" title="Permanent link">&para;</a></h3>
+<p>이번에는 구의 위치를 옮기고, 상자도 하나 추가해 보겠습니다.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># v3: 위치가 다른 두 객체 배치</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">sun</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>   <span class="c1"># &lt;- 왼쪽으로 2만큼 이동 (x축 음의 방향)</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">radius</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">yellow</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">)</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">earth</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>    <span class="c1"># &lt;- 오른쪽으로 2만큼 이동 (x축 양의 방향)</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">blue</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="p">)</span>
+</span></code></pre></div>
+<blockquote>
+<p><strong>실행 결과</strong>: 화면에 <strong>왼쪽에 노란 큰 구(태양)</strong>, <strong>오른쪽에 파란 작은 구(지구)</strong> 가 나타납니다.</p>
+</blockquote>
+<p><strong>v2에서 v3으로 바뀐 점:</strong>
+- <code>pos=vector(-2, 0, 0)</code> → 객체의 <strong>위치</strong>를 지정했습니다
+- 객체를 <strong>변수에 저장</strong>했습니다 (<code>sun = sphere(...)</code>) — 나중에 이 변수로 속성을 바꿀 수 있어요!
+- 객체가 <strong>2개</strong>로 늘었습니다</p>
+<blockquote>
+<p>💡 <code>vector(x, y, z)</code>에서 <strong>x는 좌우</strong>, <strong>y는 위아래</strong>, <strong>z는 앞뒤</strong>입니다. 레고판 위에 블록을 놓을 때 가로, 세로, 높이를 정하는 것과 같아요!</p>
+</blockquote>
+<h3 id="v4">✅ v4 (최종): 투명도까지 추가한 완성 장면<a class="headerlink" href="#v4" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># 최종: 속성을 다양하게 활용한 미니 우주</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">scene</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">black</span>  <span class="c1"># &lt;- 배경을 검정색으로 (우주느낌!)</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">sun</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">yellow</span><span class="p">,</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    <span class="n">emissive</span><span class="o">=</span><span class="kc">True</span>            <span class="c1"># &lt;- 스스로 빛나는 효과 (태양이니까!)</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="p">)</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="n">earth</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>    <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>    <span class="n">radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">blue</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="p">)</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="n">moon</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>    <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mf">3.6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>    <span class="n">radius</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">white</span><span class="p">,</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>    <span class="n">opacity</span><span class="o">=</span><span class="mf">0.8</span>              <span class="c1"># &lt;- 살짝 투명하게 (달의 신비로운 느낌)</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="p">)</span>
+</span></code></pre></div>
+<blockquote>
+<p><strong>실행 결과</strong>: 검정 배경에 <strong>노란 태양(중앙)</strong>, <strong>파란 지구(오른쪽)</strong>, <strong>반투명 흰 달(지구 옆)</strong> 이 나타납니다!</p>
+</blockquote>
+<p><strong>이전 버전과 달라진 점:</strong>
+- <code>scene.background = color.black</code> → 배경색도 바꿀 수 있습니다
+- <code>emissive=True</code> → 자체 발광 효과 (조명 영향을 받지 않음)
+- <code>opacity=0.8</code> → 투명도 조절 (0이면 완전 투명, 1이면 불투명)</p>
+<hr />
+<h2 id="2-3d">📚 핵심 개념 2: 다양한 3D 객체 탐험<a class="headerlink" href="#2-3d" title="Permanent link">&para;</a></h2>
+<h3 id="vpython_1">🧊 VPython 객체 종류 한눈에 보기<a class="headerlink" href="#vpython_1" title="Permanent link">&para;</a></h3>
+<p>1차시에서 <code>sphere</code>(구)와 <code>box</code>(상자)를 배웠죠? VPython에는 더 다양한 3D 도형이 있습니다. 마치 레고에 다양한 모양의 블록이 있는 것처럼요!</p>
+<table>
+<thead>
+<tr>
+<th>객체</th>
+<th>생성 함수</th>
+<th>모양</th>
+<th>핵심 고유 속성</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>구</td>
+<td><code>sphere()</code></td>
+<td>⚽ 공</td>
+<td><code>radius</code></td>
+</tr>
+<tr>
+<td>상자</td>
+<td><code>box()</code></td>
+<td>📦 직육면체</td>
+<td><code>size=vector(가로,세로,깊이)</code></td>
+</tr>
+<tr>
+<td>원기둥</td>
+<td><code>cylinder()</code></td>
+<td>🧪 기둥</td>
+<td><code>axis</code>, <code>radius</code></td>
+</tr>
+<tr>
+<td>원뿔</td>
+<td><code>cone()</code></td>
+<td>🔺 뿔</td>
+<td><code>axis</code>, <code>radius</code></td>
+</tr>
+<tr>
+<td>화살표</td>
+<td><code>arrow()</code></td>
+<td>➡️ 화살표</td>
+<td><code>axis</code>, <code>shaftwidth</code></td>
+</tr>
+<tr>
+<td>고리</td>
+<td><code>ring()</code></td>
+<td>💍 도넛</td>
+<td><code>axis</code>, <code>radius</code>, <code>thickness</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <code>cylinder</code>, <code>cone</code>, <code>arrow</code>에는 모두 <strong><code>axis</code> 속성</strong>이 있습니다. 이 속성은 객체가 <strong>어느 방향으로 뻗어있는지</strong>를 결정해요. <code>vector(1,0,0)</code>이면 x축(오른쪽) 방향, <code>vector(0,1,0)</code>이면 y축(위쪽) 방향입니다.</p>
+</blockquote>
+<p>각 객체의 관계를 시각화하면 이렇습니다:</p>
+<div class="mermaid">mindmap
+  root((VPython 3D 객체))
+    둥근 계열
+      sphere&lt;br/&gt;구
+      ring&lt;br/&gt;고리
+    기둥 계열
+      cylinder&lt;br/&gt;원기둥
+      cone&lt;br/&gt;원뿔
+    특수 계열
+      box&lt;br/&gt;상자
+      arrow&lt;br/&gt;화살표</div>
+<h3 id="_8">🧪 새로운 객체 하나씩 실험하기<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h4 id="1-cylinder">1️⃣ cylinder (원기둥)<a class="headerlink" href="#1-cylinder" title="Permanent link">&para;</a></h4>
+<p>원기둥은 <strong>시작점(pos)</strong>에서 <strong>axis 방향으로</strong> 뻗어나갑니다.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># 원기둥: pos에서 axis 방향으로 뻗어나가는 기둥</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">my_cylinder</span> <span class="o">=</span> <span class="n">cylinder</span><span class="p">(</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>      <span class="c1"># &lt;- 시작점 (밑면의 중심)</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">axis</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>     <span class="c1"># &lt;- 위쪽으로 3만큼 뻗어감 (높이=3)</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>               <span class="c1"># &lt;- 밑면 반지름</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">green</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">)</span>
+</span></code></pre></div>
+<blockquote>
+<p><strong>실행 결과</strong>: 원점에서 위쪽으로 초록색 기둥이 솟아 있습니다.</p>
+</blockquote>
+<p>위 코드의 5번째 줄 <code>axis=vector(0, 3, 0)</code>이 바로 <strong>axis 속성</strong>입니다. axis는 "이 방향으로, 이 길이만큼 뻗어라"라는 뜻이에요. <code>vector(0, 3, 0)</code>은 y축(위쪽)으로 길이 3을 의미합니다.</p>
+<h4 id="2-cone">2️⃣ cone (원뿔)<a class="headerlink" href="#2-cone" title="Permanent link">&para;</a></h4>
+<p>원뿔은 원기둥과 비슷하지만, 끝이 뾰족합니다. 아이스크림 콘을 떠올리면 돼요!</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># 원뿔: 밑면에서 꼭짓점까지 뾰족하게</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">my_cone</span> <span class="o">=</span> <span class="n">cone</span><span class="p">(</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>      <span class="c1"># &lt;- 밑면의 중심</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">axis</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>     <span class="c1"># &lt;- 꼭짓점 방향과 높이</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">radius</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>               <span class="c1"># &lt;- 밑면 반지름</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">orange</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="p">)</span>
+</span></code></pre></div>
+<blockquote>
+<p><strong>실행 결과</strong>: 원점에서 위쪽으로 주황색 원뿔이 나타납니다. 밑면은 넓고 위로 갈수록 뾰족해집니다.</p>
+</blockquote>
+<h4 id="3-arrow">3️⃣ arrow (화살표)<a class="headerlink" href="#3-arrow" title="Permanent link">&para;</a></h4>
+<p>화살표는 물리학에서 <strong>벡터(힘, 속도 등)</strong>를 표현할 때 아주 유용합니다!</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1"># 화살표: 방향과 크기를 시각적으로 보여줌</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">my_arrow</span> <span class="o">=</span> <span class="n">arrow</span><span class="p">(</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>     <span class="c1"># &lt;- 시작점</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="n">axis</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>     <span class="c1"># &lt;- 오른쪽으로 길이 4</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="n">shaftwidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>           <span class="c1"># &lt;- 화살대 굵기</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="p">)</span>
+</span></code></pre></div>
+<blockquote>
+<p><strong>실행 결과</strong>: 왼쪽에서 오른쪽으로 향하는 빨간색 화살표가 나타납니다.</p>
+</blockquote>
+<p>위 코드의 7번째 줄 <code>shaftwidth=0.2</code>는 arrow만의 <strong>고유 속성</strong>입니다. 화살대(shaft)의 굵기를 조절해요.</p>
+<h4 id="4-ring">4️⃣ ring (고리)<a class="headerlink" href="#4-ring" title="Permanent link">&para;</a></h4>
+<p>고리는 도넛 모양입니다. axis는 고리가 <strong>바라보는 방향</strong>(법선 벡터)을 뜻해요.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># 고리: 도넛 모양, axis는 고리면에 수직인 방향</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">my_ring</span> <span class="o">=</span> <span class="n">ring</span><span class="p">(</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">axis</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>     <span class="c1"># &lt;- 고리가 바닥에 평행하게 놓임</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>               <span class="c1"># &lt;- 고리의 큰 반지름 (중심에서 고리까지)</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="n">thickness</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>            <span class="c1"># &lt;- 고리 자체의 굵기</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">purple</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="p">)</span>
+</span></code></pre></div>
+<blockquote>
+<p><strong>실행 결과</strong>: 바닥에 평행하게 보라색 고리가 나타납니다.</p>
+<p>💡 ring의 <code>thickness</code>는 "고리 줄의 굵기"이고, <code>radius</code>는 "고리 전체의 크기"입니다. 실제 반지의 두께와 반지 크기를 생각하면 쉬워요!</p>
+</blockquote>
+<h3 id="axis">📊 axis 속성 방향 비교<a class="headerlink" href="#axis" title="Permanent link">&para;</a></h3>
+<p>같은 <code>axis</code> 값이 각 객체에서 어떤 의미인지 정리해 봅시다:</p>
+<table>
+<thead>
+<tr>
+<th>axis 값</th>
+<th>cylinder</th>
+<th>cone</th>
+<th>arrow</th>
+<th>ring</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vector(1,0,0)</code></td>
+<td>오른쪽으로 뻗은 기둥</td>
+<td>오른쪽으로 뾰족한 뿔</td>
+<td>오른쪽 화살표</td>
+<td>정면을 바라보는 고리</td>
+</tr>
+<tr>
+<td><code>vector(0,1,0)</code></td>
+<td>위로 솟은 기둥</td>
+<td>위로 뾰족한 뿔</td>
+<td>위쪽 화살표</td>
+<td>바닥에 평행한 고리</td>
+</tr>
+<tr>
+<td><code>vector(0,0,1)</code></td>
+<td>앞으로 나온 기둥</td>
+<td>앞으로 뾰족한 뿔</td>
+<td>앞쪽 화살표</td>
+<td>벽에 걸린 고리</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_9">🚨 에러 경험 설계: 실수에서 배우기<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>실제 코딩을 하다 보면 반드시 에러를 만나게 됩니다. 미리 한번 만나보면, 나중에 당황하지 않아요! 아래 코드를 <strong>직접 실행해 보세요</strong>.</p>
+<h3 id="1">❌ 에러 1: 속성 이름 오타<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1"># 🚨 일부러 틀린 코드 - 어디가 잘못됐을까요?</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">sphere</span><span class="p">(</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="n">radious</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>              <span class="c1"># &lt;- 철자가 틀림! radius가 맞음</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="p">)</span>
+</span></code></pre></div>
+<blockquote>
+<p>🤔 <strong>이 코드를 실행하면 어떤 에러가 날까요?</strong> 잠시 생각해 보세요!</p>
+</blockquote>
+<p><strong>에러 메시지:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>AttributeError: &#39;sphere&#39; object has no attribute &#39;radious&#39;
+</span></code></pre></div></p>
+<p><strong>원인 분석</strong>: <code>radious</code>는 VPython이 모르는 속성 이름입니다. 올바른 철자는 <code>radius</code>예요. VPython은 알 수 없는 속성을 넘기면 에러를 발생시킵니다.</p>
+<p><strong>수정 코드:</strong>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vpython</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># ✅ 수정: radious → radius</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">sphere</span><span class="p">(</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>               <span class="c1"># &lt;- 올바른 철자!</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="p">)</span>
+</span></code></pre></div></p>
+<h3 id="2-color">❌ 에러 2: color에 잘못된 값 넣기<a class="headerlink" href="#2-color" title="Permanent link">&para;</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="하단/푸터" >
+        
+          
+          <a href="../chapter01/" class="md-footer__link md-footer__link--prev" aria-label="이전: 1차시: 첫 번째 3D 세계 만들기 - 환경 설정부터 구(sphere) 띄우기까지">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                이전
+              </span>
+              <div class="md-ellipsis">
+                1차시: 첫 번째 3D 세계 만들기 - 환경 설정부터 구(sphere) 띄우기까지
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../chapter03/" class="md-footer__link md-footer__link--next" aria-label="다음: 3차시: 코드에 생명 불어넣기 - while 루프로 애니메이션 만들기">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                다음
+              </span>
+              <div class="md-ellipsis">
+                3차시: 코드에 생명 불어넣기 - while 루프로 애니메이션 만들기
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 이명희 | <a href='https://eduflow-greatsong.fly.dev/'>EduFlow</a>로 제작
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "navigation.instant", "navigation.path", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../javascripts/title-link.js"></script>
+      
+        <script src="../javascripts/mermaid-config.js"></script>
+      
+        <script src="../javascripts/scroll-progress.js"></script>
+      
+        <script src="../javascripts/eduflow-nav.js"></script>
+      
+        <script src="../javascripts/lightbox.js"></script>
+      
+        <script src="../javascripts/quiz-engine.js"></script>
+      
+    
+  </body>
+</html>
