@@ -1817,21 +1817,21 @@ nav.md-footer__inner,
 }
 .ef-lightbox-close:hover { background: rgba(255,255,255,0.25); }
 
-/* === Color Theme Override: indigo === */
+/* === Color Theme Override: amber === */
 :root {
-  --ef-primary: #4f46e5;
-  --ef-primary-dark: #4338ca;
-  --ef-primary-light: #eef2ff;
-  --ef-primary-lighter: #f5f3ff;
-  --ef-accent: #7c3aed;
-  --ef-primary-text: #312e81;
-  --ef-primary-border: #c7d2fe;
-  --ef-primary-deep: #1e1b4b;
-  --ef-primary-deep-mid: #312e81;
-  --ef-code-border: #e0e7ff;
-  --ef-footer-link: #a5b4fc;
-  --ef-footer-link-hover: #c7d2fe;
+  --ef-primary: #ea580c;
+  --ef-primary-dark: #c2410c;
+  --ef-primary-light: #fff7ed;
+  --ef-primary-lighter: #fffbeb;
+  --ef-accent: #f59e0b;
+  --ef-primary-text: #7c2d12;
+  --ef-primary-border: #fed7aa;
+  --ef-primary-deep: #431407;
+  --ef-primary-deep-mid: #7c2d12;
+  --ef-code-border: #ffedd5;
+  --ef-footer-link: #fdba74;
+  --ef-footer-link-hover: #fed7aa;
 }
 [data-md-color-scheme="slate"] {
-  --ef-primary-text: #c4b5fd;
+  --ef-primary-text: #fdba74;
 }
